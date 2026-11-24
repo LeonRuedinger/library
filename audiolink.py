@@ -10,7 +10,9 @@ For every book and service it
   3. fills the CSV if one candidate is clearly the right one - otherwise it writes the candidates to
      review.csv so you can pick by hand.
 
-It never marks a book as "not available" - a search that finds nothing only leaves the cells empty.
+During weekly refreshes (--refresh), a listing is marked unavailable only
+after three consecutive weekly scans return no search results. Errors and
+ambiguous matches do not count as missing listings.
 
 Setup (once):
     pip install playwright
@@ -157,12 +159,36 @@ def settle(page, ms=9000):
         page.wait_for_timeout(1500)
 
 
+def validate_search_page(page, service):
+    title = (page.title() or "").lower()
+    text = (page.locator("body").inner_text(timeout=10000) or "").lower()
+
+    blocked_markers = [
+        "captcha",
+        "robot check",
+        "are you a robot",
+        "access denied",
+        "unusual traffic",
+        "verify you are human",
+        "automated requests",
+        "temporarily blocked",
+    ]
+
+    combined = title + "\n" + text
+
+    for marker in blocked_markers:
+        if marker in combined:
+            raise RuntimeError(
+                f"{service}: search page appears blocked ({marker})"
+            )
+
+
 def search_candidates(page, svc, title, link_re, search_url, nmax):
     url = search_url.replace("{q}", urllib.parse.quote_plus(title))
     page.goto(url, wait_until="domcontentloaded", timeout=45000)
     click_consent(page)
     settle(page)
-
+    validate_search_page(page, str(svc))
     seen, out = set(), []
     for a in page.query_selector_all("a[href]"):
         try:
@@ -250,6 +276,40 @@ def service_status(service, body):
 
     return "included", ""
 
+def record_history(path, title, author, service, event,
+                   old_url="", new_url="",
+                   old_status="", new_status="",
+                   old_note="", new_note=""):
+
+    fields = [
+        "date", "title", "author", "service", "event",
+        "old_url", "new_url",
+        "old_status", "new_status",
+        "old_note", "new_note"
+    ]
+
+    file_exists = os.path.exists(path) and os.path.getsize(path) > 0
+
+    with open(path, "a", newline="", encoding="utf-8-sig") as f:
+        writer = csv.DictWriter(f, fieldnames=fields)
+
+        if not file_exists:
+            writer.writeheader()
+
+        writer.writerow({
+            "date": str(date.today()),
+            "title": title,
+            "author": author,
+            "service": service,
+            "event": event,
+            "old_url": old_url,
+            "new_url": new_url,
+            "old_status": old_status,
+            "new_status": new_status,
+            "old_note": old_note,
+            "new_note": new_note
+        })
+
 
 # ------------------------------------------------------------------ Audible: catalog data and result cards
 API_GROUPS = ["contributors", "media", "product_attrs", "product_desc", "product_extended_attrs",
@@ -312,6 +372,8 @@ def audible_cards_scored(page, search_url, title, author, exp_lang, link_re, nma
     page.goto(url, wait_until="domcontentloaded", timeout=45000)
     click_consent(page)
     settle(page)
+    validate_search_page(page, "Audible")
+
     seen, out = set(), []
     for it in page.evaluate(JS_CARDS):
         full = urllib.parse.urljoin(page.url, it["href"]).split("#")[0].split("?")[0]
@@ -345,6 +407,8 @@ def main():
     ap.add_argument("--audible-api", default=AUDIBLE_API, help="catalog endpoint (change the country here)")
     ap.add_argument("--overwrite", action="store_true", help="also redo cells that already have a link")
     ap.add_argument("--retry", action="store_true", help="redo services that were tried before")
+    ap.add_argument("--refresh", action="store_true",
+                    help="recheck every book and service, including completed lookups")
     ap.add_argument("--headed", action="store_true", help="show the browser window")
     ap.add_argument("--debug", metavar="DIR", help="save screenshots, HTML and raw catalog data here")
     ap.add_argument("--delay", type=float, nargs=2, default=[2.0, 4.0], metavar=("MIN", "MAX"))
@@ -359,6 +423,7 @@ def main():
     out_path = a.out or os.path.splitext(a.csv)[0] + "_linked.csv"
     state_path = out_path + ".state.json"
     review_path = os.path.join(os.path.dirname(os.path.abspath(out_path)), "review.csv")
+    history_path = os.path.join(os.path.dirname(os.path.abspath(out_path)), "availability_history.csv")
 
     # Always use the master CSV as the authoritative book list.
     with open(a.csv, newline="", encoding="utf-8-sig") as f:
@@ -448,7 +513,9 @@ def main():
             todo = []
             for s in services:
                 k = f"{norm(title)}|{norm(author)}|{norm(r.get('lang', ''))}|{s}"
-                if (r.get(s) and not (a.overwrite or a.retry)) or (k in state and not a.retry):
+                force_check = a.overwrite or a.retry or a.refresh
+
+                if (r.get(s) and not force_check) or (k in state and not force_check):
                     continue
                 todo.append((s, k))
             if not todo:
@@ -496,19 +563,150 @@ def main():
                             scored.append(dict(url=cu, score=sc, name=name, ptitle=ptitle, lang=page_lang(body), body=body))
                     scored.sort(key=lambda c: -c["score"])
                     if not scored:
-                        state[k] = {"result": "none", "ts": str(date.today())}
-                        notes.append(f"{s}: no results"); print(f"   {svc['label']}: nothing found (search page opened, no audiobook links)")
+                        previous_state = state.get(k, {})
+
+                        if a.refresh:
+                            today = date.today()
+                            iso_week = today.isocalendar()
+                            week_key = f"{iso_week.year}-W{iso_week.week:02d}"
+
+                            last_refresh_week = previous_state.get("last_refresh_week")
+
+                            if last_refresh_week == week_key:
+                                misses = int(previous_state.get("misses", 0))
+                            else:
+                                misses = int(previous_state.get("misses", 0)) + 1
+
+                            if r.get(s) and misses == 1:
+                                record_history(
+                                    history_path,
+                                    title,
+                                    author,
+                                    s,
+                                    "no_search_results_unconfirmed",
+                                    old_url=r.get(s, ""),
+                                    old_status=r.get(s + "_status", ""),
+                                    old_note=r.get(s + "_note", "")
+                                )
+
+                            if r.get(s) and misses >= 3:
+                                old_url = r.get(s, "")
+                                old_status = r.get(s + "_status", "")
+                                old_note = r.get(s + "_note", "")
+
+                                record_history(
+                                    history_path,
+                                    title,
+                                    author,
+                                    s,
+                                    "listing_unavailable_confirmed",
+                                    old_url=old_url,
+                                    old_status=old_status,
+                                    old_note=old_note
+                                )
+
+                                r[s] = ""
+                                r[s + "_status"] = "unavailable"
+                                r[s + "_note"] = "Not found in 3 consecutive weekly scans"
+
+                                state[k] = {
+                                    "result": "unavailable",
+                                    "misses": misses,
+                                    "ts": str(date.today()),
+                                    "last_refresh_week": week_key,
+                                }
+
+                                print(f"   {svc['label']}: UNAVAILABLE after 3 weekly scans")
+
+                            else:
+                                state[k] = {
+                                    **previous_state,
+                                    "result": previous_state.get("result", "none"),
+                                    "misses": misses,
+                                    "ts": str(date.today()),
+                                    "last_refresh_week": week_key,
+                                }
+
+                                print(f"   {svc['label']}: no results ({misses}/3 weekly scans)")
+
+                            notes.append(f"{s}: no results")
+
+                        else:
+                            # Ordinary lookups and manual retries do not count as weekly misses.
+                            state[k] = {
+                                **previous_state,
+                                "result": previous_state.get("result", "none"),
+                                "ts": str(date.today())
+                            }
+
+                            notes.append(f"{s}: no results")
+                            print(f"   {svc['label']}: no results (existing link retained)")
                     elif scored[0]["score"] >= ACCEPT:
                         best = scored[0]
                         st, note = best.get("status") or service_status(s, best["body"])
                         lang_note = {"de": "German edition", "en": "English edition", "fr": "French edition",
                                      "it": "Italian edition", "es": "Spanish edition"}.get(best["lang"] or "", "")
-                        r[s], r[s + "_status"] = best["url"], st
-                        r[s + "_note"] = " \u00b7 ".join(x for x in (lang_note, note) if x)
-                        state[k] = {"result": "found", "score": best["score"], "ts": str(date.today())}
+                        new_url = best["url"]
+                        new_note = " · ".join(x for x in (lang_note, note) if x)
+
+                        old_url = r.get(s, "")
+                        old_status = r.get(s + "_status", "")
+                        old_note = r.get(s + "_note", "")
+
+                        events = []
+
+                        if old_status == "unavailable":
+                            events.append("listing_returned")
+                        elif not old_url:
+                            events.append("new_listing")
+                        elif old_url != new_url:
+                            events.append("listing_changed")
+
+                        if old_url and (old_status != st or old_note != new_note):
+                            events.append("subscription_status_changed")
+
+                        if events:
+                            record_history(
+                                history_path,
+                                title,
+                                author,
+                                s,
+                                "+".join(events),
+                                old_url,
+                                new_url,
+                                old_status,
+                                st,
+                                old_note,
+                                new_note
+                            )
+
+                        r[s], r[s + "_status"] = new_url, st
+                        r[s + "_note"] = new_note
+                        previous_state = state.get(k, {})
+                        new_state = {
+                            **previous_state,
+                            "result": "found",
+                            "score": best["score"],
+                            "ts": str(date.today()),
+                            "misses": 0
+                        }
+                        new_state.pop("msg", None)
+
+                        if a.refresh:
+                            today = date.today()
+                            iso_week = today.isocalendar()
+                            new_state["last_refresh_week"] = f"{iso_week.year}-W{iso_week.week:02d}"
+
+                        state[k] = new_state
                         notes.append(f"{s}: ok {best['score']}"); print(f"   {svc['label']}: FOUND {best['url']}  (score {best['score']}, {best['lang'] or '?'})")
                     else:
-                        state[k] = {"result": "review", "score": scored[0]["score"], "ts": str(date.today())}
+                        previous_state = state.get(k, {})
+                        state[k] = {
+                            **previous_state,
+                            "result": "review",
+                            "score": scored[0]["score"],
+                            "ts": str(date.today())
+                        }
                         notes.append(f"{s}: review"); print(f"   {svc['label']}: needs a look - best score {scored[0]['score']}  (see review.csv)")
                         for c in scored[:a.candidates]:
                             reason = ("wrong language" if exp_lang and c["lang"] and c["lang"] != exp_lang else "low confidence")
@@ -516,7 +714,13 @@ def main():
                             review.append(dict(title=title, author=author, service=s, score=c["score"], language=c["lang"] or "",
                                                page_title=c["ptitle"][:90], url=c["url"], reason=reason))
                 except Exception as e:
-                    state[k] = {"result": "error", "msg": str(e)[:120], "ts": str(date.today())}
+                    previous_state = state.get(k, {})
+                    state[k] = {
+                        **previous_state,
+                        "result": "error",
+                        "msg": str(e)[:120],
+                        "ts": str(date.today())
+                    }
                     notes.append(f"{s}: error"); print(f"   {svc['label']}: ERROR {str(e)[:100]}")
                 r["checked"] = str(date.today())
                 r["lookup"] = f"script {date.today()}: " + "; ".join(notes)
