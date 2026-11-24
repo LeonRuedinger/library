@@ -735,8 +735,10 @@ def index_page(books, site, S, lang):
     const addButton = document.getElementById("add-book");
     
     
-    async function monitorProcessing(status, submissionMessage) {
-        const statusUrl = "https://library-submissions.thisamail2.workers.dev/status";
+    async function monitorProcessing(status, submissionMessage, submissionStartedAt) {
+        const statusUrl =
+            "https://library-submissions.thisamail2.workers.dev/status?since=" +
+            encodeURIComponent(submissionStartedAt);
     
         status.textContent = submissionMessage + "\\n\\n⏳ Checking processing status...";
     
@@ -959,6 +961,7 @@ function setupEntry(entry) {
         status.textContent = "Submitting...";
 
         try {
+            const submissionStartedAt = new Date().toISOString();
             const response = await fetch(
                 "https://library-submissions.thisamail2.workers.dev",
                 {
@@ -1025,7 +1028,7 @@ function setupEntry(entry) {
                 updateBookNumbers();
             }
             if (result.success && result.deploymentTriggered) {
-                monitorProcessing(status, messages.join("\\n"));
+                monitorProcessing(status, messages.join("\\n"), submissionStartedAt);
             }
             
             turnstile.reset();
