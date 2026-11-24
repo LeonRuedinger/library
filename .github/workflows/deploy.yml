@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -33,14 +36,19 @@ jobs:
       - name: Generate website
         run: python bookpages.py books_test_linked.csv --with-index --covers-dir .
 
-      - name: Inspect generated website
+      - name: Save scraper results
         run: |
-          echo "=== Generated CSV files ==="
-          ls -lah *.csv
-          echo "=== Site directory ==="
-          find site -maxdepth 2 -type f
-          echo "=== Index file ==="
-          sed -n '1,120p' site/index.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add books_test_linked.csv books_test_linked.csv.state.json
+
+          if git diff --cached --quiet; then
+            echo "No scraper changes to save."
+          else
+            git commit -m "Update audiobook links"
+            git push
+          fi
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5

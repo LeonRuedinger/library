@@ -360,13 +360,63 @@ def main():
     state_path = out_path + ".state.json"
     review_path = os.path.join(os.path.dirname(os.path.abspath(out_path)), "review.csv")
 
-    src = out_path if os.path.exists(out_path) and not a.retry else a.csv
-    with open(src, newline="", encoding="utf-8-sig") as f:
+    # Always use the master CSV as the authoritative book list.
+    with open(a.csv, newline="", encoding="utf-8-sig") as f:
         rd = csv.DictReader(f)
-        rows, cols = list(rd), list(rd.fieldnames)
-    need = ["lookup", "checked"] + [c for s in services for c in (s, s + "_status", s + "_note")]
-    cols += [c for c in need if c not in cols]
+        master_rows = list(rd)
+        master_cols = list(rd.fieldnames)
+
+    # Load previous scraper results, if available.
+    old_rows = []
+    old_cols = []
+
+    if os.path.exists(out_path):
+        with open(out_path, newline="", encoding="utf-8-sig") as f:
+            rd = csv.DictReader(f)
+            old_rows = list(rd)
+            old_cols = list(rd.fieldnames)
+
+    def book_key(r):
+        return "|".join(norm(r.get(c, "")) for c in ("title", "author", "lang"))
+
+    old_by_key = {book_key(r): r for r in old_rows}
+
+    # Keep master data authoritative, but reuse scraper-generated fields.
+    need = ["lookup", "checked"] + [
+        c for s in services
+        for c in (s, s + "_status", s + "_note")
+    ]
+
+    cols = master_cols + [
+        c for c in old_cols + need
+        if c not in master_cols
+    ]
+
+    rows = []
+
+    for master in master_rows:
+        row = dict(master)
+        previous = old_by_key.get(book_key(master), {})
+
+        for c in cols:
+            if c not in master_cols:
+                row[c] = previous.get(c, "")
+
+        rows.append(row)
+
+    # Retain state only for books that still exist.
+    active_keys = {
+        f"{norm(r.get('title', ''))}|{norm(r.get('author', ''))}|{norm(r.get('lang', ''))}|{s}"
+        for r in rows
+        for s in services
+    }
+
     state = json.load(open(state_path, encoding="utf-8")) if os.path.exists(state_path) else {}
+    state = {
+        k: v for k, v in state.items()
+        if k in active_keys
+    }
+
     review = []
 
     def save():
@@ -397,7 +447,7 @@ def main():
             exp_lang = (r.get("lang") or "").strip().lower() or infer_lang(title) or a.default_lang
             todo = []
             for s in services:
-                k = f"{norm(title)}|{norm(author)}|{s}"
+                k = f"{norm(title)}|{norm(author)}|{norm(r.get('lang', ''))}|{s}"
                 if (r.get(s) and not (a.overwrite or a.retry)) or (k in state and not a.retry):
                     continue
                 todo.append((s, k))
