@@ -257,6 +257,27 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
   border-color: var(--blue);
   box-shadow: 0 0 0 3px rgba(29,78,216,.12);
 }
+
+/* cover image upload */
+#book-form input[type="file"] {
+  padding: 10px;
+  font-size: .85rem;
+  cursor: pointer;
+}
+
+#cover-preview {
+  display: none;
+  margin-top: 8px;
+}
+
+#cover-preview img {
+  display: block;
+  max-width: 120px;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
 """
 
 INDEX_JS = """
@@ -474,6 +495,16 @@ def index_page(books, site, S, lang):
     <option value="en">English</option>
 </select>
 
+        <label for="book-cover">Book cover (optional)</label>
+<input
+    id="book-cover"
+    name="cover"
+    type="file"
+    accept="image/*"
+    capture="environment"
+>
+<div id="cover-preview"></div>
+
         <div id="turnstile-widget"></div>
 
         <button type="submit" id="submit-book">Submit book</button>
@@ -501,6 +532,55 @@ window.onTurnstileLoaded = function () {
     });
 };
 
+const coverInput = document.getElementById("book-cover");
+const coverPreview = document.getElementById("cover-preview");
+
+let compressedCover = null;
+
+coverInput.addEventListener("change", async function () {
+    compressedCover = null;
+    coverPreview.innerHTML = "";
+    coverPreview.style.display = "none";
+
+    const file = coverInput.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        alert("Please select an image file.");
+        coverInput.value = "";
+        return;
+    }
+
+    const image = new Image();
+    image.src = URL.createObjectURL(file);
+
+    await new Promise((resolve, reject) => {
+        image.onload = resolve;
+        image.onerror = reject;
+    });
+
+    const maxSize = 1200;
+    const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(image.width * scale);
+    canvas.height = Math.round(image.height * scale);
+
+    canvas.getContext("2d").drawImage(
+        image, 0, 0, canvas.width, canvas.height
+    );
+
+    compressedCover = canvas.toDataURL("image/jpeg", 0.82);
+
+    const preview = document.createElement("img");
+    preview.src = compressedCover;
+
+    coverPreview.appendChild(preview);
+    coverPreview.style.display = "block";
+
+    URL.revokeObjectURL(image.src);
+});
+
 document.getElementById("book-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
@@ -521,6 +601,7 @@ document.getElementById("book-form").addEventListener("submit", async function (
         author: form.author.value.trim(),
         publisher: form.publisher.value.trim(),
         lang: form.lang.value.trim(),
+        cover: compressedCover,
         turnstileToken: turnstileToken
     };
 
