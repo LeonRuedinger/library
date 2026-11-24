@@ -278,6 +278,96 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
   border-radius: 8px;
   border: 1px solid var(--line);
 }
+
+
+/* Batch book entries */
+
+.book-entry {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.book-entry-header {
+    background: var(--surface);
+}
+
+.entry-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+}
+
+.entry-number {
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.entry-summary {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+.entry-chevron {
+    transition: transform .2s ease;
+}
+
+.book-entry.collapsed .entry-chevron {
+    transform: rotate(-90deg);
+}
+
+.book-entry-fields {
+    padding: 0 16px 16px;
+}
+
+.book-entry.collapsed .book-entry-fields {
+    display: none;
+}
+
+/* Add another book button */
+
+#add-book {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0 20px;
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+}
+
+#add-book:hover {
+    background: var(--surface);
+    border-color: var(--text);
+}
+
+#add-book:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
 """
 
 INDEX_JS = """
@@ -485,30 +575,39 @@ def index_page(books, site, S, lang):
             <div id="book-entries">
 
                 <div class="book-entry">
+                
                     <div class="book-entry-header">
-                        <h3>Book 1</h3>
+                        <button type="button" class="entry-toggle" aria-expanded="true">
+                            <span class="entry-number">Book 1</span>
+                            <span class="entry-summary">New book</span>
+                            <span class="entry-chevron">⌄</span>
+                        </button>
                     </div>
-
-                    <label>Title *</label>
-                    <input name="title" required maxlength="250">
-
-                    <label>Author *</label>
-                    <input name="author" required maxlength="200">
-
-                    <label>Publisher</label>
-                    <input name="publisher" maxlength="200">
-
-                    <label>Language *</label>
-                    <select name="lang" required>
-                        <option value="de">Deutsch</option>
-                        <option value="en">English</option>
-                    </select>
-
-                    <label>Book cover (optional)</label>
-                    <input name="cover" type="file"
-                           accept="image/*" capture="environment">
-
-                    <div class="cover-preview"></div>
+                
+                    <div class="book-entry-fields">
+                
+                        <label>Title *</label>
+                        <input name="title" required maxlength="250">
+                
+                        <label>Author *</label>
+                        <input name="author" required maxlength="200">
+                
+                        <label>Publisher</label>
+                        <input name="publisher" maxlength="200">
+                
+                        <label>Language *</label>
+                        <select name="lang" required>
+                            <option value="de">Deutsch</option>
+                            <option value="en">English</option>
+                        </select>
+                
+                        <label>Book cover (optional)</label>
+                        <input name="cover" type="file"
+                               accept="image/*" capture="environment">
+                
+                        <div class="cover-preview"></div>
+                
+                    </div>
                 </div>
 
             </div>
@@ -553,11 +652,55 @@ def index_page(books, site, S, lang):
     const entries = document.getElementById("book-entries");
     const addButton = document.getElementById("add-book");
 
-    function updateBookNumbers() {
-        entries.querySelectorAll(".book-entry").forEach((entry, index) => {
-            entry.querySelector("h3").textContent = `Book ${index + 1}`;
-        });
+    
+function updateBookNumbers() {
+    entries.querySelectorAll(".book-entry").forEach((entry, index) => {
+        entry.querySelector(".entry-number").textContent = `Book ${index + 1}`;
+        updateEntrySummary(entry);
+    });
+}
+
+function updateEntrySummary(entry) {
+    const title = entry.querySelector('[name="title"]').value.trim();
+    const author = entry.querySelector('[name="author"]').value.trim();
+    const lang = entry.querySelector('[name="lang"]').value;
+
+    const summary = entry.querySelector(".entry-summary");
+
+    if (title || author) {
+        summary.textContent = [title, author].filter(Boolean).join(" — ");
+    } else {
+        summary.textContent = "New book";
     }
+
+    const languageLabel = lang === "de" ? "DE" : "EN";
+    summary.textContent += ` · ${languageLabel}`;
+}
+
+function setEntryCollapsed(entry, collapsed) {
+    entry.classList.toggle("collapsed", collapsed);
+
+    const toggle = entry.querySelector(".entry-toggle");
+    toggle.setAttribute("aria-expanded", String(!collapsed));
+}
+
+// Set up collapsible behavior and live summaries
+function setupEntry(entry) {
+    const toggle = entry.querySelector(".entry-toggle");
+
+    toggle.addEventListener("click", () => {
+        setEntryCollapsed(entry, !entry.classList.contains("collapsed"));
+    });
+
+    entry.querySelectorAll("input:not([type='file']), select").forEach(input => {
+        input.addEventListener("input", () => updateEntrySummary(entry));
+        input.addEventListener("change", () => updateEntrySummary(entry));
+    });
+
+    setupCoverInput(entry);
+    updateEntrySummary(entry);
+}
+
 
     function setupCoverInput(entry) {
         const coverInput = entry.querySelector('input[name="cover"]');
@@ -620,26 +763,36 @@ def index_page(books, site, S, lang):
     }
 
     // Set up the initial book entry
-    setupCoverInput(entries.querySelector(".book-entry"));
+    setupEntry(entries.querySelector(".book-entry"));
 
     // Add another book
+    
     addButton.addEventListener("click", function () {
-        const firstEntry = entries.querySelector(".book-entry");
+        const allEntries = entries.querySelectorAll(".book-entry");
+        const firstEntry = allEntries[0];
         const newEntry = firstEntry.cloneNode(true);
-
+    
+        // Collapse all existing entries
+        allEntries.forEach(entry => setEntryCollapsed(entry, true));
+    
+        // Clear the cloned fields
         newEntry.querySelectorAll("input").forEach(input => {
             input.value = "";
         });
-
+    
         newEntry.querySelector("select").value = "de";
         newEntry.querySelector(".cover-preview").innerHTML = "";
         newEntry.querySelector(".cover-preview").style.display = "none";
         newEntry.dataset.compressedCover = "";
-
+    
+        // Open the new entry
+        newEntry.classList.remove("collapsed");
+    
         entries.appendChild(newEntry);
-        setupCoverInput(newEntry);
+        setupEntry(newEntry);
         updateBookNumbers();
     });
+
 
     // Submit all books
     document.getElementById("book-form").addEventListener("submit", async function (e) {
