@@ -1,0 +1,46 @@
+{
+ "lady macbeth|ava reid|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-24"
+ },
+ "lady macbeth|ava reid|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-24"
+ },
+ "lady macbeth|ava reid|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-24"
+ },
+ "furcht und elend des 3 reichs|bertolt brecht|de|audible": {
+  "result": "review",
+  "score": 0.263,
+  "ts": "2026-11-24"
+ },
+ "furcht und elend des 3 reichs|bertolt brecht|de|storytel": {
+  "result": "found",
+  "score": 0.82,
+  "ts": "2026-11-24"
+ },
+ "furcht und elend des 3 reichs|bertolt brecht|de|bookbeat": {
+  "result": "none",
+  "ts": "2026-11-24"
+ },
+ "test|te st|de|audible": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-24"
+ },
+ "test|te st|de|storytel": {
+  "result": "review",
+  "score": 0.627,
+  "ts": "2026-11-24"
+ },
+ "test|te st|de|bookbeat": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-24"
+ }
+}
