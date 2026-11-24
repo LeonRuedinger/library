@@ -140,6 +140,123 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 .cardlink .a{color:var(--muted);font-size:.8rem}
 .badge{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:999px;background:var(--chip);color:var(--chip-text);font-size:.7rem;font-weight:700}
 .center{text-align:center;padding:30px 10px}
+
+/* book submission form */
+.submission {
+  margin: 22px 0 26px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg);
+}
+
+.submission h2 {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: 1rem;
+  letter-spacing: -.01em;
+  text-transform: none;
+}
+
+#book-form {
+  display: grid;
+  gap: 7px;
+}
+
+#book-form label {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+#book-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: .95rem;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+#book-form input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(29,78,216,.12);
+}
+
+#turnstile-widget {
+  margin: 14px 0 6px;
+  min-height: 0;
+}
+
+#submit-book {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--btn);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s, transform .12s;
+}
+
+#submit-book:hover {
+  background: var(--btn-hover);
+}
+
+#submit-book:active {
+  transform: scale(.985);
+}
+
+#submit-book:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+#submission-status {
+  min-height: 1.3em;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: .85rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 420px) {
+  .submission {
+    padding: 16px;
+  }
+
+  #turnstile-widget {
+    transform-origin: left top;
+  }
+}
+#book-form select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: .95rem;
+  outline: none;
+  cursor: pointer;
+}
+
+#book-form select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(29,78,216,.12);
+}
 """
 
 INDEX_JS = """
@@ -323,28 +440,145 @@ def book_page(b, site, S, lang, with_index, search=None):
 """)
 
 
+
 def index_page(books, site, S, lang):
     cards = []
     for b in books:
         badge = f'<span class="badge">{esc(S["audio"])}</span>' if b["links"] else ""
         s = esc((b["title"] + " " + b["author"]).lower())
-        cards.append(f'<a class="cardlink" href="{b["id"]}/" data-s="{s}">{cover_html(b, b["id"] + "/")}'
-                     f'<div class="t">{esc(b["title"])}</div><div class="a">{esc(b["author"])}</div>{badge}</a>')
+        cards.append(
+            f'<a class="cardlink" href="{b["id"]}/" data-s="{s}">'
+            f'{cover_html(b, b["id"] + "/")}'
+            f'<div class="t">{esc(b["title"])}</div>'
+            f'<div class="a">{esc(b["author"])}</div>{badge}</a>'
+        )
+
     count = S["count"].format(n=len(books))
+
+    form_html = """
+<section class="submission">
+    <h2>Add a book</h2>
+    <form id="book-form">
+        <label for="book-title">Title *</label>
+        <input id="book-title" name="title" required maxlength="250">
+
+        <label for="book-author">Author *</label>
+        <input id="book-author" name="author" required maxlength="200">
+
+        <label for="book-publisher">Publisher</label>
+        <input id="book-publisher" name="publisher" maxlength="200">
+
+        <label for="book-lang">Language *</label>
+<select id="book-lang" name="lang" required>
+    <option value="de">Deutsch</option>
+    <option value="en">English</option>
+</select>
+
+        <div id="turnstile-widget"></div>
+
+        <button type="submit" id="submit-book">Submit book</button>
+        <p id="submission-status" role="status" aria-live="polite"></p>
+    </form>
+</section>
+"""
+
+    submission_js = """
+<script>
+let turnstileToken = "";
+
+window.onTurnstileLoaded = function () {
+    turnstile.render("#turnstile-widget", {
+        sitekey: "0x4AAAAAAGRIEytKju80-3JK",
+        callback: function (token) {
+            turnstileToken = token;
+        },
+        "expired-callback": function () {
+            turnstileToken = "";
+        },
+        "error-callback": function () {
+            turnstileToken = "";
+        }
+    });
+};
+
+document.getElementById("book-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const button = document.getElementById("submit-book");
+    const status = document.getElementById("submission-status");
+
+    if (!turnstileToken) {
+        status.textContent = "Please complete the security verification.";
+        return;
+    }
+
+    button.disabled = true;
+    status.textContent = "Submitting...";
+
+    const data = {
+        title: form.title.value.trim(),
+        author: form.author.value.trim(),
+        publisher: form.publisher.value.trim(),
+        lang: form.lang.value.trim(),
+        turnstileToken: turnstileToken
+    };
+
+    try {
+        const response = await fetch(
+            "https://library-submissions.thisamail2.workers.dev",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || "Submission failed.");
+        }
+
+        status.textContent = result.message;
+        form.reset();
+        turnstile.reset();
+        turnstileToken = "";
+
+    } catch (error) {
+        status.textContent = error.message;
+        turnstile.reset();
+        turnstileToken = "";
+    } finally {
+        button.disabled = false;
+    }
+});
+</script>
+"""
+
     return (head(S["all"], site, S, lang, "") + f"""
 <body>
 <header class="top"><span>{esc(site)}</span></header>
 <main class="wrap">
 <div class="card">
-<input id="q" class="search" type="search" placeholder="{esc(S["search"])}" aria-label="{esc(S["search"])}">
+<input id="q" class="search" type="search"
+       placeholder="{esc(S["search"])}"
+       aria-label="{esc(S["search"])}">
 <p class="count" id="n" data-t="{esc(S["count"])}">{esc(count)}</p>
+
+{form_html}
+
 <div class="grid">{"".join(cards)}</div>
 </div>
 </main>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoaded&render=explicit" async defer></script>
+{submission_js}
 <script>{INDEX_JS}</script>
 </body>
 </html>
 """)
+
 
 
 def simple_page(title, text, site, S, lang):

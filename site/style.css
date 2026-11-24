@@ -60,3 +60,120 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 .cardlink .a{color:var(--muted);font-size:.8rem}
 .badge{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:999px;background:var(--chip);color:var(--chip-text);font-size:.7rem;font-weight:700}
 .center{text-align:center;padding:30px 10px}
+
+/* book submission form */
+.submission {
+  margin: 22px 0 26px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg);
+}
+
+.submission h2 {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: 1rem;
+  letter-spacing: -.01em;
+  text-transform: none;
+}
+
+#book-form {
+  display: grid;
+  gap: 7px;
+}
+
+#book-form label {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+#book-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: .95rem;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+#book-form input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(29,78,216,.12);
+}
+
+#turnstile-widget {
+  margin: 14px 0 6px;
+  min-height: 0;
+}
+
+#submit-book {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--btn);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s, transform .12s;
+}
+
+#submit-book:hover {
+  background: var(--btn-hover);
+}
+
+#submit-book:active {
+  transform: scale(.985);
+}
+
+#submit-book:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+#submission-status {
+  min-height: 1.3em;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: .85rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 420px) {
+  .submission {
+    padding: 16px;
+  }
+
+  #turnstile-widget {
+    transform-origin: left top;
+  }
+}
+#book-form select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: .95rem;
+  outline: none;
+  cursor: pointer;
+}
+
+#book-form select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(29,78,216,.12);
+}
