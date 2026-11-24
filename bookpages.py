@@ -411,6 +411,38 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 #submission-status {
     white-space: pre-line;
 }
+
+/* Books currently being processed */
+.cardlink:has(.processing-badge) {
+    opacity: 0.55;
+    position: relative;
+}
+
+.processing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--line);
+}
+
+.processing-badge::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: processing-spin 0.8s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes processing-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
 """
 
 INDEX_JS = """
@@ -598,13 +630,19 @@ def book_page(b, site, S, lang, with_index, search=None):
 def index_page(books, site, S, lang):
     cards = []
     for b in books:
-        badge = f'<span class="badge">{esc(S["audio"])}</span>' if b["links"] else ""
+        if b.get("processing"):
+            badge = '<span class="badge processing-badge">Processing…</span>'
+        else:
+            badge = f'<span class="badge">{esc(S["audio"])}</span>' if b["links"] else ""
         s = esc((b["title"] + " " + b["author"]).lower())
+        tag = "div" if b.get("processing") else "a"
+        href = "" if b.get("processing") else f' href="{b["id"]}/"'
+
         cards.append(
-            f'<a class="cardlink" href="{b["id"]}/" data-s="{s}">'
+            f'<{tag} class="cardlink" {href} data-s="{s}">'
             f'{cover_html(b, b["id"] + "/")}'
             f'<div class="t">{esc(b["title"])}</div>'
-            f'<div class="a">{esc(b["author"])}</div>{badge}</a>'
+            f'<div class="a">{esc(b["author"])}</div>{badge}</{tag}>'
         )
 
     count = S["count"].format(n=len(books))
@@ -695,6 +733,53 @@ def index_page(books, site, S, lang):
 
     const entries = document.getElementById("book-entries");
     const addButton = document.getElementById("add-book");
+    
+    
+    async function monitorProcessing(status, submissionMessage) {
+        const statusUrl = "https://library-submissions.thisamail2.workers.dev/status";
+    
+        status.textContent = submissionMessage + "\n\n⏳ Checking processing status...";
+    
+        while (true) {
+            try {
+                const response = await fetch(statusUrl, {
+                    method: "GET",
+                    cache: "no-store"
+                });
+    
+                if (!response.ok) {
+                    throw new Error("Status request failed.");
+                }
+    
+                const data = await response.json();
+    
+                status.textContent =
+                    submissionMessage + "\n\n" +
+                    "⏳ " + data.message;
+    
+                if (data.state === "completed") {
+                    status.textContent += "\n\n✓ Library updated! Reloading...";
+    
+                    await new Promise(resolve => setTimeout(resolve, 2500));
+                    window.location.reload();
+                    return;
+                }
+    
+                if (data.state === "failed") {
+                    status.textContent += "\n\nWorkflow details: " + data.url;
+                    return;
+                }
+    
+            } catch (error) {
+                status.textContent =
+                    submissionMessage +
+                    "\n\n⚠ Could not retrieve status. Retrying...";
+            }
+    
+            await new Promise(resolve => setTimeout(resolve, 3000));
+        }
+    }
+
 
     
 function updateBookNumbers() {
@@ -939,6 +1024,9 @@ function setupEntry(entry) {
                 firstEntry.classList.remove("collapsed");
                 updateBookNumbers();
             }
+            if (result.success && result.deploymentTriggered) {
+                monitorProcessing(status, messages.join("\\n"));
+            }
             
             turnstile.reset();
             turnstileToken = "";
@@ -1004,7 +1092,7 @@ def simple_page(title, text, site, S, lang):
 
 
 # ------------------------------------------------------------------ build
-def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_covers, ids_file, tags_out, cname, search=None):
+def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_covers, ids_file, tags_out, cname, search=None, master_csv=None):
     S = STRINGS[lang]
     csv_dir = os.path.dirname(os.path.abspath(csv_path))
     covers_dir = covers_dir or csv_dir
@@ -1077,13 +1165,54 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
                 missing_covers.append(front)
         books.append(b)
 
+
+    # Books present in the master CSV but not yet in the linked CSV
+    index_books = list(books)
+
+    if master_csv and os.path.exists(master_csv):
+        with open(master_csv, newline="", encoding="utf-8-sig") as f:
+            master_rows = list(csv.DictReader(f))
+
+        for raw in master_rows:
+            row = {
+                (k or "").strip().lower(): (v or "").strip()
+                for k, v in raw.items()
+            }
+
+            title = row.get("title", "")
+            author = row.get("author", "")
+
+            if not title:
+                continue
+
+            key = norm_key(title, author)
+
+            # Already present in the linked CSV
+            if key in seen:
+                continue
+
+            bid = store.get(key, row.get("id", ""))
+            seen[key] = bid
+
+            index_books.append(dict(
+                id=bid,
+                title=title,
+                author=author,
+                publisher=row.get("publisher", ""),
+                links=[],
+                absent=[],
+                has_cover=False,
+                processing=True
+            ))
+
+
     with open(os.path.join(out, "style.css"), "w", encoding="utf-8") as f:
         f.write(CSS.strip() + "\n")
     for b in books:
         os.makedirs(os.path.join(out, b["id"]), exist_ok=True)
         with open(os.path.join(out, b["id"], "index.html"), "w", encoding="utf-8") as f:
             f.write(book_page(b, site, S, lang, with_index, search))
-    root = index_page(books, site, S, lang) if with_index else simple_page(site, S["landing"], site, S, lang)
+    root = index_page(index_books, site, S, lang) if with_index else simple_page(site, S["landing"], site, S, lang)
     with open(os.path.join(out, "index.html"), "w", encoding="utf-8") as f:
         f.write(root)
     with open(os.path.join(out, "404.html"), "w", encoding="utf-8") as f:
@@ -1127,6 +1256,7 @@ def main():
     ap.add_argument("--lang", choices=["en", "de"], default="en", help="language of the page texts")
     ap.add_argument("--with-index", action="store_true",
                     help="also build a searchable list of ALL books on the start page (makes your list public)")
+    ap.add_argument("--master-csv", help="master CSV containing books not yet linked")
     ap.add_argument("--covers-dir", help="folder the 'front' paths are relative to (default: CSV folder)")
     ap.add_argument("--no-covers", action="store_true", help="never publish cover images (use title tiles)")
     ap.add_argument("--ids-file", help="where page ids are remembered (default: <csv>.ids.json)")
@@ -1143,7 +1273,8 @@ def main():
             ap.error("--search-link needs NAME=URL with {q} in it, NAME one of: " + ", ".join(k for k, _ in SERVICES))
         search[name.strip().lower()] = url.strip().strip('"')
     build(a.csv, a.out, a.base_url, a.site_title or STRINGS[a.lang]["mini"], a.lang, a.with_index,
-          a.covers_dir, not a.no_covers, a.ids_file, a.tags_out, a.cname, search)
+          a.covers_dir, not a.no_covers, a.ids_file, a.tags_out, a.cname, search,
+          a.master_csv)
 
 
 if __name__ == "__main__":
