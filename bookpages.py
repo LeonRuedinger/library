@@ -373,40 +373,41 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 }
 
 
-/* Cover preview inside expanded entry */
+
+/* Expanded cover preview */
 .book-entry-fields .cover-preview {
     display: none;
     margin-top: 10px;
 }
 
 .book-entry-fields .cover-preview img {
-    display: block;
-    width: auto;
-    height: auto;
-    max-width: 110px;
-    max-height: 150px;
-    object-fit: contain;
+    display: block !important;
+    width: 110px !important;
+    height: 150px !important;
+    object-fit: contain !important;
     border-radius: 6px;
     border: 1px solid var(--line);
+    box-sizing: border-box;
 }
 
-
-.entry-cover {
-    width: 38px;
-    height: 52px;
-    object-fit: cover;
+/* Collapsed book thumbnail */
+.book-entry-header .entry-cover {
+    display: none;
+    width: 38px !important;
+    height: 52px !important;
+    max-width: 38px !important;
+    max-height: 52px !important;
+    object-fit: cover !important;
     border-radius: 4px;
     border: 1px solid var(--line);
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
-.book-entry.collapsed .entry-cover {
+.book-entry.collapsed .book-entry-header .entry-cover[src] {
     display: block !important;
 }
 
-.book-entry:not(.collapsed) .entry-cover {
-    display: none !important;
-}
 
 """
 
@@ -797,7 +798,6 @@ function setupEntry(entry) {
                 // Update collapsed-card thumbnail
                 const thumbnail = entry.querySelector(".entry-cover");
                 thumbnail.src = compressedCover;
-                thumbnail.style.display = "block";
 
             } catch (error) {
                 alert("Could not load this image.");
