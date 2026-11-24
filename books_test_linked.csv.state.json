@@ -42,5 +42,20 @@
   "result": "review",
   "score": 0.702,
   "ts": "2026-11-24"
+ },
+ "der zerbrochene krug|heinrich von kleist|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-24"
+ },
+ "der zerbrochene krug|heinrich von kleist|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-24"
+ },
+ "der zerbrochene krug|heinrich von kleist|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-24"
  }
 }
