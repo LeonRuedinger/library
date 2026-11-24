@@ -31,7 +31,7 @@ jobs:
         run: python audiolink.py books_test.csv
 
       - name: Generate website
-        run: python bookpages.py books_test_linked.csv --with-index --covers_dir .
+        run: python bookpages.py books_test_linked.csv --with-index --covers-dir .
 
       - name: Inspect generated website
         run: |
