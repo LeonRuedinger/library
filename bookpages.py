@@ -915,7 +915,7 @@ function setupEntry(entry) {
                 messages.push(result.message);
             }
             
-            status.textContent = messages.join("\n");
+            status.textContent = messages.join("\\n");
             
             // Only reset the form if at least one book was successfully added
             if (result.success) {
