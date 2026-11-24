@@ -372,6 +372,42 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     cursor: not-allowed;
 }
 
+
+/* Cover preview inside expanded entry */
+.book-entry-fields .cover-preview {
+    display: none;
+    margin-top: 10px;
+}
+
+.book-entry-fields .cover-preview img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 110px;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+}
+
+
+.entry-cover {
+    width: 38px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    flex-shrink: 0;
+}
+
+.book-entry.collapsed .entry-cover {
+    display: block !important;
+}
+
+.book-entry:not(.collapsed) .entry-cover {
+    display: none !important;
+}
+
 """
 
 INDEX_JS = """
@@ -584,6 +620,7 @@ def index_page(books, site, S, lang):
                         <button type="button" class="entry-toggle" aria-expanded="true">
                             <span class="entry-number">Book 1</span>
                             <span class="entry-summary">New book</span>
+                            <img class="entry-cover" alt="" style="display:none">
                             <span class="entry-chevron">⌄</span>
                         </button>
                     </div>
@@ -753,9 +790,14 @@ function setupEntry(entry) {
 
                 const preview = document.createElement("img");
                 preview.src = compressedCover;
-
+                
                 coverPreview.appendChild(preview);
                 coverPreview.style.display = "block";
+                
+                // Update collapsed-card thumbnail
+                const thumbnail = entry.querySelector(".entry-cover");
+                thumbnail.src = compressedCover;
+                thumbnail.style.display = "block";
 
             } catch (error) {
                 alert("Could not load this image.");
@@ -783,6 +825,10 @@ function setupEntry(entry) {
         newEntry.querySelectorAll("input").forEach(input => {
             input.value = "";
         });
+        
+        const thumbnail = newEntry.querySelector(".entry-cover");
+        thumbnail.removeAttribute("src");
+        thumbnail.style.display = "none";
     
         newEntry.querySelector("select").value = "de";
         newEntry.querySelector(".cover-preview").innerHTML = "";
