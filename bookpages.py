@@ -477,165 +477,243 @@ def index_page(books, site, S, lang):
     count = S["count"].format(n=len(books))
 
     form_html = """
-<section class="submission">
-    <h2>Add a book</h2>
-    <form id="book-form">
-        <label for="book-title">Title *</label>
-        <input id="book-title" name="title" required maxlength="250">
+    <section class="submission">
+        <h2>Add books</h2>
 
-        <label for="book-author">Author *</label>
-        <input id="book-author" name="author" required maxlength="200">
+        <form id="book-form">
 
-        <label for="book-publisher">Publisher</label>
-        <input id="book-publisher" name="publisher" maxlength="200">
+            <div id="book-entries">
 
-        <label for="book-lang">Language *</label>
-<select id="book-lang" name="lang" required>
-    <option value="de">Deutsch</option>
-    <option value="en">English</option>
-</select>
+                <div class="book-entry">
+                    <div class="book-entry-header">
+                        <h3>Book 1</h3>
+                    </div>
 
-        <label for="book-cover">Book cover (optional)</label>
-<input
-    id="book-cover"
-    name="cover"
-    type="file"
-    accept="image/*"
-    capture="environment"
->
-<div id="cover-preview"></div>
+                    <label>Title *</label>
+                    <input name="title" required maxlength="250">
 
-        <div id="turnstile-widget"></div>
+                    <label>Author *</label>
+                    <input name="author" required maxlength="200">
 
-        <button type="submit" id="submit-book">Submit book</button>
-        <p id="submission-status" role="status" aria-live="polite"></p>
-    </form>
-</section>
-"""
+                    <label>Publisher</label>
+                    <input name="publisher" maxlength="200">
+
+                    <label>Language *</label>
+                    <select name="lang" required>
+                        <option value="de">Deutsch</option>
+                        <option value="en">English</option>
+                    </select>
+
+                    <label>Book cover (optional)</label>
+                    <input name="cover" type="file"
+                           accept="image/*" capture="environment">
+
+                    <div class="cover-preview"></div>
+                </div>
+
+            </div>
+
+            <button type="button" id="add-book">
+                + Add another book
+            </button>
+
+            <div id="turnstile-widget"></div>
+
+            <button type="submit" id="submit-book">
+                Submit all books
+            </button>
+
+            <p id="submission-status" role="status"
+               aria-live="polite"></p>
+
+        </form>
+    </section>
+    """
 
     submission_js = """
-<script>
-let turnstileToken = "";
+    <script>
+    let turnstileToken = "";
+    let bookCount = 1;
 
-window.onTurnstileLoaded = function () {
-    turnstile.render("#turnstile-widget", {
-        sitekey: "0x4AAAAAAGRIEytKju80-3JK",
-        callback: function (token) {
-            turnstileToken = token;
-        },
-        "expired-callback": function () {
-            turnstileToken = "";
-        },
-        "error-callback": function () {
-            turnstileToken = "";
-        }
-    });
-};
-
-const coverInput = document.getElementById("book-cover");
-const coverPreview = document.getElementById("cover-preview");
-
-let compressedCover = null;
-
-coverInput.addEventListener("change", async function () {
-    compressedCover = null;
-    coverPreview.innerHTML = "";
-    coverPreview.style.display = "none";
-
-    const file = coverInput.files[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-        alert("Please select an image file.");
-        coverInput.value = "";
-        return;
-    }
-
-    const image = new Image();
-    image.src = URL.createObjectURL(file);
-
-    await new Promise((resolve, reject) => {
-        image.onload = resolve;
-        image.onerror = reject;
-    });
-
-    const maxSize = 1200;
-    const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
-
-    const canvas = document.createElement("canvas");
-    canvas.width = Math.round(image.width * scale);
-    canvas.height = Math.round(image.height * scale);
-
-    canvas.getContext("2d").drawImage(
-        image, 0, 0, canvas.width, canvas.height
-    );
-
-    compressedCover = canvas.toDataURL("image/jpeg", 0.82);
-
-    const preview = document.createElement("img");
-    preview.src = compressedCover;
-
-    coverPreview.appendChild(preview);
-    coverPreview.style.display = "block";
-
-    URL.revokeObjectURL(image.src);
-});
-
-document.getElementById("book-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const button = document.getElementById("submit-book");
-    const status = document.getElementById("submission-status");
-
-    if (!turnstileToken) {
-        status.textContent = "Please complete the security verification.";
-        return;
-    }
-
-    button.disabled = true;
-    status.textContent = "Submitting...";
-
-    const data = {
-        title: form.title.value.trim(),
-        author: form.author.value.trim(),
-        publisher: form.publisher.value.trim(),
-        lang: form.lang.value.trim(),
-        cover: compressedCover,
-        turnstileToken: turnstileToken
+    window.onTurnstileLoaded = function () {
+        turnstile.render("#turnstile-widget", {
+            sitekey: "0x4AAAAAAGRIEytKju80-3JK",
+            callback: function (token) {
+                turnstileToken = token;
+            },
+            "expired-callback": function () {
+                turnstileToken = "";
+            },
+            "error-callback": function () {
+                turnstileToken = "";
+            }
+        });
     };
 
-    try {
-        const response = await fetch(
-            "https://library-submissions.thisamail2.workers.dev",
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data)
+    const entries = document.getElementById("book-entries");
+    const addButton = document.getElementById("add-book");
+
+    function updateBookNumbers() {
+        entries.querySelectorAll(".book-entry").forEach((entry, index) => {
+            entry.querySelector("h3").textContent = `Book ${index + 1}`;
+        });
+    }
+
+    function setupCoverInput(entry) {
+        const coverInput = entry.querySelector('input[name="cover"]');
+        const coverPreview = entry.querySelector(".cover-preview");
+
+        coverInput.addEventListener("change", async function () {
+            coverPreview.innerHTML = "";
+            coverPreview.style.display = "none";
+            entry.dataset.compressedCover = "";
+
+            const file = coverInput.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                alert("Please select an image file.");
+                coverInput.value = "";
+                return;
             }
-        );
 
-        const result = await response.json();
+            const image = new Image();
+            const objectUrl = URL.createObjectURL(file);
+            image.src = objectUrl;
 
-        if (!response.ok) {
-            throw new Error(result.error || "Submission failed.");
+            try {
+                await new Promise((resolve, reject) => {
+                    image.onload = resolve;
+                    image.onerror = reject;
+                });
+
+                const maxSize = 1200;
+                const scale = Math.min(
+                    1,
+                    maxSize / Math.max(image.width, image.height)
+                );
+
+                const canvas = document.createElement("canvas");
+                canvas.width = Math.round(image.width * scale);
+                canvas.height = Math.round(image.height * scale);
+
+                canvas.getContext("2d").drawImage(
+                    image, 0, 0, canvas.width, canvas.height
+                );
+
+                const compressedCover = canvas.toDataURL("image/jpeg", 0.82);
+                entry.dataset.compressedCover = compressedCover;
+
+                const preview = document.createElement("img");
+                preview.src = compressedCover;
+
+                coverPreview.appendChild(preview);
+                coverPreview.style.display = "block";
+
+            } catch (error) {
+                alert("Could not load this image.");
+                coverInput.value = "";
+            } finally {
+                URL.revokeObjectURL(objectUrl);
+            }
+        });
+    }
+
+    // Set up the initial book entry
+    setupCoverInput(entries.querySelector(".book-entry"));
+
+    // Add another book
+    addButton.addEventListener("click", function () {
+        const firstEntry = entries.querySelector(".book-entry");
+        const newEntry = firstEntry.cloneNode(true);
+
+        newEntry.querySelectorAll("input").forEach(input => {
+            input.value = "";
+        });
+
+        newEntry.querySelector("select").value = "de";
+        newEntry.querySelector(".cover-preview").innerHTML = "";
+        newEntry.querySelector(".cover-preview").style.display = "none";
+        newEntry.dataset.compressedCover = "";
+
+        entries.appendChild(newEntry);
+        setupCoverInput(newEntry);
+        updateBookNumbers();
+    });
+
+    // Submit all books
+    document.getElementById("book-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const button = document.getElementById("submit-book");
+        const status = document.getElementById("submission-status");
+
+        if (!turnstileToken) {
+            status.textContent = "Please complete the security verification.";
+            return;
         }
 
-        status.textContent = result.message;
-        form.reset();
-        turnstile.reset();
-        turnstileToken = "";
+        const books = Array.from(
+            entries.querySelectorAll(".book-entry")
+        ).map(entry => ({
+            title: entry.querySelector('[name="title"]').value.trim(),
+            author: entry.querySelector('[name="author"]').value.trim(),
+            publisher: entry.querySelector('[name="publisher"]').value.trim(),
+            lang: entry.querySelector('[name="lang"]').value,
+            cover: entry.dataset.compressedCover || null
+        }));
 
-    } catch (error) {
-        status.textContent = error.message;
-        turnstile.reset();
-        turnstileToken = "";
-    } finally {
-        button.disabled = false;
-    }
-});
-</script>
-"""
+        button.disabled = true;
+        addButton.disabled = true;
+        status.textContent = "Submitting...";
+
+        try {
+            const response = await fetch(
+                "https://library-submissions.thisamail2.workers.dev",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        books: books,
+                        turnstileToken: turnstileToken
+                    })
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || "Submission failed.");
+            }
+
+            status.textContent = result.message;
+
+            form.reset();
+            entries.querySelectorAll(".book-entry:not(:first-child)").forEach(
+                entry => entry.remove()
+            );
+
+            entries.querySelector(".book-entry").dataset.compressedCover = "";
+            entries.querySelector(".cover-preview").innerHTML = "";
+            entries.querySelector(".cover-preview").style.display = "none";
+
+            updateBookNumbers();
+            turnstile.reset();
+            turnstileToken = "";
+
+        } catch (error) {
+            status.textContent = error.message;
+            turnstile.reset();
+            turnstileToken = "";
+
+        } finally {
+            button.disabled = false;
+            addButton.disabled = false;
+        }
+    });
+    </script>
+    """
 
     return (head(S["all"], site, S, lang, "") + f"""
 <body>
