@@ -31,7 +31,7 @@ jobs:
         run: python audiolink.py books_test.csv
 
       - name: Generate website
-        run: python bookpages.py books_linked.csv
+        run: python bookpages.py books_test_linked.csv
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
