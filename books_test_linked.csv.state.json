@@ -102,5 +102,18 @@
   "result": "review",
   "score": 0.552,
   "ts": "2026-11-24"
+ },
+ "schatzichronik|schatzi|de|audible": {
+  "result": "review",
+  "score": 0.309,
+  "ts": "2026-11-24"
+ },
+ "schatzichronik|schatzi|de|storytel": {
+  "result": "none",
+  "ts": "2026-11-24"
+ },
+ "schatzichronik|schatzi|de|bookbeat": {
+  "result": "none",
+  "ts": "2026-11-24"
  }
 }
