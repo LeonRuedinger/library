@@ -334,8 +334,12 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     padding: 0 16px 16px;
 }
 
-.book-entry.collapsed .book-entry-fields {
-    display: none;
+.book-entry.collapsed > .book-entry-fields {
+    display: none !important;
+}
+
+.book-entry:not(.collapsed) > .book-entry-fields {
+    display: block;
 }
 
 /* Add another book button */
