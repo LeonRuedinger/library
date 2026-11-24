@@ -303,7 +303,7 @@ def book_page(b, site, S, lang, with_index, search=None):
     author = f'<p class="author">{esc(b["author"])}</p>' if b["author"] else ""
     checked = f'<p class="foot">{esc(S["checked"].format(d=fmt_date(b["checked"], lang)))}</p>' if b["checked"] and (b["links"] or b["absent"]) else ""
     back = f'<a class="back" href="../">&larr; {esc(S["all"])}</a>' if with_index else ""
-    return (head(b["title"], site, S, lang, "../../") + f"""
+    return (head(b["title"], site, S, lang, "../") + f"""
 <body>
 <header class="top"><span>{esc(site)}</span></header>
 <main class="wrap">
