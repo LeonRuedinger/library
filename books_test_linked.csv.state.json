@@ -87,5 +87,20 @@
   "result": "review",
   "score": 0.23,
   "ts": "2026-11-24"
+ },
+ "test 2|te st|de|audible": {
+  "result": "review",
+  "score": 0.284,
+  "ts": "2026-11-24"
+ },
+ "test 2|te st|de|storytel": {
+  "result": "review",
+  "score": 0.627,
+  "ts": "2026-11-24"
+ },
+ "test 2|te st|de|bookbeat": {
+  "result": "review",
+  "score": 0.552,
+  "ts": "2026-11-24"
  }
 }
