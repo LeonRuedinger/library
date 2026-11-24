@@ -738,7 +738,7 @@ def index_page(books, site, S, lang):
     async function monitorProcessing(status, submissionMessage) {
         const statusUrl = "https://library-submissions.thisamail2.workers.dev/status";
     
-        status.textContent = submissionMessage + "\n\n⏳ Checking processing status...";
+        status.textContent = submissionMessage + "\\n\\n⏳ Checking processing status...";
     
         while (true) {
             try {
@@ -754,11 +754,11 @@ def index_page(books, site, S, lang):
                 const data = await response.json();
     
                 status.textContent =
-                    submissionMessage + "\n\n" +
+                    submissionMessage + "\\n\\n" +
                     "⏳ " + data.message;
     
                 if (data.state === "completed") {
-                    status.textContent += "\n\n✓ Library updated! Reloading...";
+                    status.textContent += "\\n\\n✓ Library updated! Reloading...";
     
                     await new Promise(resolve => setTimeout(resolve, 2500));
                     window.location.reload();
@@ -766,14 +766,14 @@ def index_page(books, site, S, lang):
                 }
     
                 if (data.state === "failed") {
-                    status.textContent += "\n\nWorkflow details: " + data.url;
+                    status.textContent += "\\n\\nWorkflow details: " + data.url;
                     return;
                 }
     
             } catch (error) {
                 status.textContent =
                     submissionMessage +
-                    "\n\n⚠ Could not retrieve status. Retrying...";
+                    "\\n\\n⚠ Could not retrieve status. Retrying...";
             }
     
             await new Promise(resolve => setTimeout(resolve, 3000));
