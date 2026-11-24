@@ -27,5 +27,20 @@
  "furcht und elend des 3 reichs|bertolt brecht|de|bookbeat": {
   "result": "none",
   "ts": "2026-11-24"
+ },
+ "test|te st|de|audible": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-24"
+ },
+ "test|te st|de|storytel": {
+  "result": "review",
+  "score": 0.627,
+  "ts": "2026-11-24"
+ },
+ "test|te st|de|bookbeat": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-24"
  }
 }
