@@ -408,7 +408,9 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     display: block !important;
 }
 
-
+#submission-status {
+    white-space: pre-line;
+}
 """
 
 INDEX_JS = """
@@ -884,15 +886,63 @@ function setupEntry(entry) {
                 }
             );
 
+            
             const result = await response.json();
-
-            if (!response.ok) {
+            
+            if (!response.ok && !result.duplicates) {
                 throw new Error(result.error || "Submission failed.");
             }
+            
+            const messages = [];
+            
+            if (result.added && result.added.length) {
+                messages.push("✓ Added:");
+                result.added.forEach(book => {
+                    messages.push(`• ${book.title} — ${book.author}`);
+                });
+            }
+            
+            if (result.duplicates && result.duplicates.length) {
+                messages.push("");
+                messages.push("Skipped (already exists):");
+                result.duplicates.forEach(book => {
+                    messages.push(`• ${book.title} — ${book.author}`);
+                });
+            }
+            
+            if (result.message) {
+                messages.push("");
+                messages.push(result.message);
+            }
+            
+            status.textContent = messages.join("\n");
+            
+            // Only reset the form if at least one book was successfully added
+            if (result.success) {
+                form.reset();
+            
+                entries.querySelectorAll(".book-entry:not(:first-child)").forEach(
+                    entry => entry.remove()
+                );
+            
+                const firstEntry = entries.querySelector(".book-entry");
+                firstEntry.dataset.compressedCover = "";
+                firstEntry.querySelector(".cover-preview").innerHTML = "";
+                firstEntry.querySelector(".cover-preview").style.display = "none";
+            
+                const thumbnail = firstEntry.querySelector(".entry-cover");
+                if (thumbnail) {
+                    thumbnail.removeAttribute("src");
+                    thumbnail.style.display = "none";
+                }
+            
+                firstEntry.classList.remove("collapsed");
+                updateBookNumbers();
+            }
+            
+            turnstile.reset();
+            turnstileToken = "";
 
-            status.textContent = result.message;
-
-            form.reset();
             entries.querySelectorAll(".book-entry:not(:first-child)").forEach(
                 entry => entry.remove()
             );
