@@ -57,5 +57,35 @@
   "result": "found",
   "score": 1.0,
   "ts": "2026-11-24"
+ },
+ "wow|schatzi|de|audible": {
+  "result": "review",
+  "score": 0.175,
+  "ts": "2026-11-24"
+ },
+ "wow|schatzi|de|storytel": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-24"
+ },
+ "wow|schatzi|de|bookbeat": {
+  "result": "review",
+  "score": 0.75,
+  "ts": "2026-11-24"
+ },
+ "wow 2|schatzi|de|audible": {
+  "result": "review",
+  "score": 0.189,
+  "ts": "2026-11-24"
+ },
+ "wow 2|schatzi|de|storytel": {
+  "result": "review",
+  "score": 0.552,
+  "ts": "2026-11-24"
+ },
+ "wow 2|schatzi|de|bookbeat": {
+  "result": "review",
+  "score": 0.23,
+  "ts": "2026-11-24"
  }
 }
