@@ -303,7 +303,7 @@ def book_page(b, site, S, lang, with_index, search=None):
     author = f'<p class="author">{esc(b["author"])}</p>' if b["author"] else ""
     checked = f'<p class="foot">{esc(S["checked"].format(d=fmt_date(b["checked"], lang)))}</p>' if b["checked"] and (b["links"] or b["absent"]) else ""
     back = f'<a class="back" href="../">&larr; {esc(S["all"])}</a>' if with_index else ""
-    return (head(b["title"], site, S, lang, "../") + f"""
+    return (head(b["title"], site, S, lang, "../../") + f"""
 <body>
 <header class="top"><span>{esc(site)}</span></header>
 <main class="wrap">
@@ -363,7 +363,7 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
     csv_dir = os.path.dirname(os.path.abspath(csv_path))
     covers_dir = covers_dir or csv_dir
     ids_file = ids_file or os.path.splitext(os.path.abspath(csv_path))[0] + ".ids.json"
-    tags_out = tags_out or os.path.join(csv_dir, "tag_urls.csv")
+    tags_out = tags_out or os.path.join(csv_dir, "../tag_urls.csv")
     store, warnings, books, seen = IdStore(ids_file), [], [], {}
 
     have_pil = True
