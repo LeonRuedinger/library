@@ -33,6 +33,13 @@ jobs:
       - name: Generate website
         run: python bookpages.py books_test_linked.csv
 
+      - name: Inspect generated website
+        run: |
+          echo "=== Site directory ==="
+          find site -maxdepth 2 -type f
+          echo "=== Index file ==="
+          sed -n '1,120p' site/index.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
