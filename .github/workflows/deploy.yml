@@ -35,6 +35,8 @@ jobs:
 
       - name: Inspect generated website
         run: |
+          echo "=== Generated CSV files ==="
+          ls -lah *.csv
           echo "=== Site directory ==="
           find site -maxdepth 2 -type f
           echo "=== Index file ==="
