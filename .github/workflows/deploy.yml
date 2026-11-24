@@ -28,7 +28,7 @@ jobs:
         run: python -m playwright install --with-deps chromium
 
       - name: Run audiobook scraper
-        run: python audiolink.py books.csv
+        run: python audiolink.py books_test.csv
 
       - name: Generate website
         run: python bookpages.py books_linked.csv
