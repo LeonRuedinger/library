@@ -735,52 +735,105 @@ def index_page(books, site, S, lang):
     const addButton = document.getElementById("add-book");
     
     
-    async function monitorProcessing(status, submissionMessage, submissionStartedAt) {
-        const statusUrl =
-            "https://library-submissions.thisamail2.workers.dev/status?since=" +
-            encodeURIComponent(submissionStartedAt);
     
-        status.textContent = submissionMessage + "\\n\\n⏳ Checking processing status...";
-    
-        while (true) {
-            try {
-                const response = await fetch(statusUrl, {
-                    method: "GET",
-                    cache: "no-store"
-                });
-    
-                if (!response.ok) {
-                    throw new Error("Status request failed.");
-                }
-    
-                const data = await response.json();
-    
-                status.textContent =
-                    submissionMessage + "\\n\\n" +
-                    "⏳ " + data.message;
-    
-                if (data.state === "completed") {
-                    status.textContent += "\\n\\n✓ Library updated! Reloading...";
-    
-                    await new Promise(resolve => setTimeout(resolve, 2500));
-                    window.location.reload();
-                    return;
-                }
-    
-                if (data.state === "failed") {
-                    status.textContent += "\\n\\nWorkflow details: " + data.url;
-                    return;
-                }
-    
-            } catch (error) {
+async function monitorProcessing(status, submissionMessage, submissionStartedAt) {
+    const storageKey = "libraryProcessingMonitor";
+
+    const statusUrl =
+        "https://library-submissions.thisamail2.workers.dev/status?since=" +
+        encodeURIComponent(submissionStartedAt);
+
+    let monitorData = JSON.parse(
+        sessionStorage.getItem(storageKey) || "null"
+    );
+
+    if (!monitorData || monitorData.submissionStartedAt !== submissionStartedAt) {
+        monitorData = {
+            submissionMessage,
+            submissionStartedAt,
+            pendingReloaded: false
+        };
+
+        sessionStorage.setItem(storageKey, JSON.stringify(monitorData));
+    }
+
+    while (true) {
+        try {
+            const response = await fetch(statusUrl, {
+                method: "GET",
+                cache: "no-store"
+            });
+
+            if (!response.ok) {
+                throw new Error("Status request failed.");
+            }
+
+            const data = await response.json();
+
+            status.textContent =
+                submissionMessage + "\\n\\n⏳ " + data.message;
+
+            if (data.state === "pending_ready" && !monitorData.pendingReloaded) {
+                monitorData.pendingReloaded = true;
+                sessionStorage.setItem(storageKey, JSON.stringify(monitorData));
+
                 status.textContent =
                     submissionMessage +
-                    "\\n\\n⚠ Could not retrieve status. Retrying...";
+                    "\\n\\n✓ New books are visible! Refreshing...";
+
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                window.location.reload();
+                return;
             }
-    
-            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            if (data.state === "completed") {
+                sessionStorage.removeItem(storageKey);
+
+                status.textContent =
+                    submissionMessage +
+                    "\\n\\n✓ Library fully updated! Refreshing...";
+
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                window.location.reload();
+                return;
+            }
+
+            if (data.state === "failed") {
+                sessionStorage.removeItem(storageKey);
+                status.textContent += "\\n\\nWorkflow details: " + data.url;
+                return;
+            }
+
+        } catch (error) {
+            status.textContent =
+                submissionMessage +
+                "\\n\\n⚠ Could not retrieve status. Retrying...";
         }
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
     }
+}
+
+// Resume monitoring after a page reload
+const savedMonitor = sessionStorage.getItem("libraryProcessingMonitor");
+
+if (savedMonitor) {
+    try {
+        const monitorData = JSON.parse(savedMonitor);
+        const status = document.getElementById("submission-status");
+
+        if (status) {
+            monitorProcessing(
+                status,
+                monitorData.submissionMessage,
+                monitorData.submissionStartedAt
+            );
+        }
+    } catch (error) {
+        sessionStorage.removeItem("libraryProcessingMonitor");
+    }
+}
+
 
 
     
