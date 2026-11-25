@@ -444,7 +444,6 @@ def index_page(books, site, S, lang):
 
     const entries = document.getElementById("book-entries");
     const addButton = document.getElementById("add-book");
-    const closeBookForm = document.getElementById("close-book-form");
     const bookFormDialog = document.getElementById("book-form-dialog");
     
     const submissionOverlay = document.getElementById("submission-overlay");
