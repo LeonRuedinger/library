@@ -41,14 +41,11 @@ jobs:
       - name: Upload pending website
         uses: actions/upload-pages-artifact@v4
         with:
-          name: github-pages-pending
           path: ./site
 
       - name: Deploy pending website
         id: deployment-pending
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages-pending
 
       # Only install the browser after the pending website is live.
       - name: Install Chromium
@@ -81,11 +78,8 @@ jobs:
       - name: Upload final website
         uses: actions/upload-pages-artifact@v4
         with:
-          name: github-pages-final
           path: ./site
 
       - name: Deploy final website
         id: deployment-final
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: github-pages-final
