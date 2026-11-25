@@ -1,0 +1,73 @@
+name: Deploy selected release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git branch to deploy
+        required: true
+        default: advent-preparation
+        type: string
+      with_index:
+        description: Include the digital bookshelf
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build website
+        env:
+          WITH_INDEX: ${{ inputs.with_index }}
+        run: |
+          args=()
+          if [[ "$WITH_INDEX" == "true" ]]; then
+            args+=(--with-index)
+          fi
+
+          python bookpages.py books_linked.csv \
+            "${args[@]}" \
+            --covers-dir . \
+            --out site
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
