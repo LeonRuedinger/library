@@ -1941,23 +1941,5 @@
   "result": "review",
   "score": 0.558,
   "ts": "2026-11-24"
- },
- "a court of frost and starlight|sarah j maas|en|audible": {
-  "result": "found",
-  "score": 1.0,
-  "ts": "2026-11-25",
-  "misses": 0
- },
- "a court of frost and starlight|sarah j maas|en|storytel": {
-  "result": "found",
-  "score": 1.0,
-  "ts": "2026-11-25",
-  "misses": 0
- },
- "a court of frost and starlight|sarah j maas|en|bookbeat": {
-  "result": "found",
-  "score": 0.963,
-  "ts": "2026-11-25",
-  "misses": 0
  }
 }

@@ -152,13 +152,6 @@ def click_consent(page):
         pass
 
 
-def settle(page, ms=9000):
-    try:
-        page.wait_for_load_state("networkidle", timeout=ms)
-    except Exception:
-        page.wait_for_timeout(1500)
-
-
 def validate_search_page(page, service):
     title = (page.title() or "").lower()
     text = (page.locator("body").inner_text(timeout=10000) or "").lower()
@@ -187,7 +180,7 @@ def search_candidates(page, svc, title, link_re, search_url, nmax):
     url = search_url.replace("{q}", urllib.parse.quote_plus(title))
     page.goto(url, wait_until="domcontentloaded", timeout=45000)
     click_consent(page)
-    settle(page)
+    page.wait_for_timeout(1500)
     validate_search_page(page, str(svc))
     seen, out = set(), []
     for a in page.query_selector_all("a[href]"):
@@ -219,8 +212,7 @@ def search_candidates(page, svc, title, link_re, search_url, nmax):
 
 def read_candidate(page, url):
     page.goto(url, wait_until="domcontentloaded", timeout=45000)
-    settle(page, 7000)
-
+    page.wait_for_timeout(1500)
     body = page.inner_text("body")
 
     title = ""
@@ -371,7 +363,7 @@ def audible_cards_scored(page, search_url, title, author, exp_lang, link_re, nma
     url = search_url.replace("{q}", urllib.parse.quote_plus(title))
     page.goto(url, wait_until="domcontentloaded", timeout=45000)
     click_consent(page)
-    settle(page)
+    page.wait_for_timeout(1500)
     validate_search_page(page, "Audible")
 
     seen, out = set(), []
@@ -411,7 +403,7 @@ def main():
                     help="recheck every book and service, including completed lookups")
     ap.add_argument("--headed", action="store_true", help="show the browser window")
     ap.add_argument("--debug", metavar="DIR", help="save screenshots, HTML and raw catalog data here")
-    ap.add_argument("--delay", type=float, nargs=2, default=[2.0, 4.0], metavar=("MIN", "MAX"))
+    ap.add_argument("--delay", type=float, nargs=2, default=[0.5, 1.0], metavar=("MIN", "MAX"))
     ap.add_argument("--search", action="append", default=[], metavar="NAME=URL",
                     help="override a search address, e.g. storytel=https://...query={q}")
     a = ap.parse_args()
@@ -452,10 +444,9 @@ def main():
         for c in (s, s + "_status", s + "_note")
     ]
 
-    cols = master_cols + [
-        c for c in old_cols + need
-        if c not in master_cols
-    ]
+    cols = list(dict.fromkeys(
+        master_cols + old_cols + need
+    ))
 
     rows = []
 
@@ -577,6 +568,12 @@ def main():
 
                             sc = score(title, author, exp_lang, name or ptitle, page_lang(body), body)
                             scored.append(dict(url=cu, score=sc, name=name, ptitle=ptitle, lang=page_lang(body), body=body))
+                            if (
+                                sc >= 0.95
+                                and exp_lang == page_lang(body)
+                                and author_match(author, name + "\n" + body) == 1.0
+                            ):
+                                break
                     scored.sort(key=lambda c: -c["score"])
                     if not scored:
                         previous_state = state.get(k, {})
