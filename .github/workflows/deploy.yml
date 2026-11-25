@@ -26,10 +26,10 @@ jobs:
 
       - name: Generate website with processing placeholders
         run: |
-          python bookpages.py books_test_linked.csv \
+          python bookpages.py books_linked.csv \
             --with-index \
             --covers-dir . \
-            --master-csv books_test.csv
+            --master-csv books.csv
 
       - name: Upload pending website
         uses: actions/upload-pages-artifact@v4
@@ -81,21 +81,21 @@ jobs:
         run: python -m playwright install --with-deps chromium
 
       - name: Run audiobook scraper
-        run: python audiolink.py books_test.csv
+        run: python audiolink.py books.csv
 
       - name: Generate final website
         run: |
-          python bookpages.py books_test_linked.csv \
+          python bookpages.py books_linked.csv \
             --with-index \
             --covers-dir . \
-            --master-csv books_test.csv
+            --master-csv books.csv
 
       - name: Save scraper results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add books_test_linked.csv books_test_linked.csv.state.json
+          git add books_linked.csv books_linked.csv.state.json
 
           if git diff --cached --quiet; then
             echo "No scraper changes to save."
