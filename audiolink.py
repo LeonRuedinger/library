@@ -271,7 +271,7 @@ def service_status(service, body):
             return "buy", "Not included in subscription"
 
     elif service == "storytel":
-        if "dieser titel ist aufgrund von verlagsrechten nur zum kauf erhältlich" in low:
+        if "Dieser Titel ist nur zum Kauf erhältlich" in low:
             return "buy", "Only available for purchase"
 
     return "included", ""

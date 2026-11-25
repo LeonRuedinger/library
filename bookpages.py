@@ -133,15 +133,301 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 .search{width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--text);
   font:inherit;margin:0 0 6px}
 .count{margin:10px 2px 14px;color:var(--muted);font-size:.85rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:16px}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+    gap: 16px;
+    align-items: start;
+}
 .cardlink{display:block;text-decoration:none;color:inherit}
 .cardlink .cover{width:100%;margin:0 0 8px}
 .cardlink .t{font-weight:700;font-size:.92rem;line-height:1.25;overflow-wrap:anywhere}
 .cardlink .a{color:var(--muted);font-size:.8rem}
+
+/* Add-book tile */
+.add-book-card {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.add-book-card .add-book-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    margin-bottom: 8px;
+    border: 2px dashed var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--btn);
+    font-size: 4rem;
+    font-weight: 300;
+    transition: border-color .15s, background .15s, transform .15s;
+}
+
+.add-book-card:hover .add-book-icon {
+    border-color: var(--btn);
+    background: var(--chip);
+    transform: translateY(-2px);
+}
+
+.add-book-card .t {
+    font-weight: 700;
+    font-size: .92rem;
+    line-height: 1.25;
+}
+
 .badge{display:inline-block;margin-top:4px;padding:1px 8px;border-radius:999px;background:var(--chip);color:var(--chip-text);font-size:.7rem;font-weight:700}
 .center{text-align:center;padding:30px 10px}
 
 /* book submission form */
+
+
+/* ISBN barcode scanner */
+.barcode-scanner {
+    margin: 0 0 16px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+}
+
+.barcode-scanner p {
+    margin: 0 0 14px;
+    color: var(--muted);
+    font-size: .88rem;
+    line-height: 1.5;
+}
+
+.barcode-scanner p strong {
+    display: inline-block;
+    margin-bottom: 3px;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+.barcode-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.barcode-scanner button {
+    min-height: 44px;
+    padding: 11px 16px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .12s;
+}
+
+.barcode-scanner button:hover {
+    border-color: var(--blue);
+}
+
+.barcode-scanner button:active {
+    transform: scale(.98);
+}
+
+.barcode-scanner button.primary,
+#barcode-preview button {
+    border-color: var(--btn);
+    background: var(--btn);
+    color: white;
+}
+
+.barcode-scanner button.primary:hover,
+#barcode-preview button:hover {
+    background: var(--btn-hover);
+}
+
+.barcode-isbn-input {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.barcode-isbn-input input {
+    flex: 1;
+    width: auto !important;
+    min-width: 0;
+}
+
+#barcode-video {
+    display: block;
+    width: 100%;
+    max-height: 360px;
+    margin-top: 14px;
+    border-radius: 12px;
+    background: #000;
+    object-fit: cover;
+}
+
+#barcode-video[hidden] {
+    display: none;
+}
+
+
+/* Camera scanning frame */
+.barcode-video-container {
+    position: relative;
+    width: 100%;
+    margin-top: 14px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+}
+
+.barcode-video-container[hidden] {
+    display: none;
+}
+
+.barcode-video-container #barcode-video {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 360px;
+    margin: 0;
+    border-radius: 0;
+    background: #000;
+    object-fit: cover;
+}
+
+.barcode-scan-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 40%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255, 255, 255, .9);
+    border-radius: 10px;
+    box-shadow: 0 0 0 999px rgba(0, 0, 0, .28);
+    pointer-events: none;
+}
+
+.barcode-scan-frame::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    right: 4%;
+    height: 2px;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, .8);
+    animation: barcode-scan-line 2s ease-in-out infinite;
+}
+
+@keyframes barcode-scan-line {
+    0%, 100% { transform: translateY(-30px); }
+    50% { transform: translateY(30px); }
+}
+
+#barcode-preview {
+    margin-top: 14px;
+}
+
+#barcode-preview img {
+    width: 80px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+}
+
+#barcode-message {
+    margin-top: 10px;
+    font-size: .85rem;
+    color: var(--muted);
+    white-space: pre-line;
+}
+
+@media (max-width: 480px) {
+    .barcode-scanner {
+        padding: 14px;
+    }
+
+    .barcode-isbn-input {
+        flex-direction: column;
+    }
+
+    .barcode-isbn-input button {
+        width: 100%;
+    }
+}
+
+/* ISBN book result card */
+.barcode-book-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg);
+}
+
+.barcode-book-cover {
+    flex: 0 0 88px;
+    width: 88px;
+    max-height: 132px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.barcode-book-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.barcode-book-title {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text);
+    font-size: .98rem;
+    line-height: 1.4;
+}
+
+.barcode-book-author {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: .88rem;
+}
+
+.barcode-book-publisher {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: .8rem;
+}
+
+.barcode-book-add {
+    margin-top: 6px;
+}
+
+@media (max-width: 420px) {
+    .barcode-book-card {
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .barcode-book-cover {
+        flex-basis: 72px;
+        width: 72px;
+    }
+}
+
 .submission {
   margin: 22px 0 26px;
   padding: 20px;
@@ -259,11 +545,31 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 }
 
 /* cover image upload */
+
 #book-form input[type="file"] {
-  padding: 10px;
-  font-size: .85rem;
-  cursor: pointer;
+    padding: 10px;
+    font-size: .85rem;
+    cursor: pointer;
 }
+
+#book-form input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 9px 14px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+}
+
+#book-form input[type="file"]::file-selector-button:hover {
+    border-color: var(--blue);
+    background: var(--surface);
+}
+
 
 #cover-preview {
   display: none;
@@ -443,13 +749,89 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
         transform: rotate(360deg);
     }
 }
+
+[data-s][hidden] {
+    display: none !important;
+}
+
+
+/* Add-book modal */
+.book-form-dialog {
+    width: min(680px, calc(100% - 28px));
+    max-width: 680px;
+    max-height: 90vh;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--bg);
+    color: var(--text);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+    overflow: auto;
+}
+
+.book-form-dialog::backdrop {
+    background: rgba(0, 0, 0, .65);
+    backdrop-filter: blur(3px);
+}
+
+.book-form-dialog .submission {
+    margin: 0;
+    padding: 24px;
+}
+
+.book-form-dialog .submission h2 {
+    margin-top: 0;
+}
+
+@media (max-width: 480px) {
+    .book-form-dialog {
+        width: calc(100% - 20px);
+        max-height: 94vh;
+        border-radius: 14px;
+    }
+
+    .book-form-dialog .submission {
+        padding: 16px;
+    }
+}
+
+.book-form-close {
+    position: sticky;
+    top: 10px;
+    float: right;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    margin: 10px 10px -46px 0;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
 """
+
 
 INDEX_JS = """
 const q=document.getElementById('q'),items=[...document.querySelectorAll('[data-s]')],n=document.getElementById('n');
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();let c=0;
   items.forEach(e=>{const m=!v||e.dataset.s.includes(v);e.hidden=!m;if(m)c++});n.textContent=n.dataset.t.replace('{n}',c)});
+
+const bookDialog=document.getElementById('book-form-dialog');
+const openBookForm=document.getElementById('open-book-form');
+const closeBookForm=document.getElementById('close-book-form');
+
+openBookForm.addEventListener('click',()=>bookDialog.showModal());
+closeBookForm.addEventListener('click',()=>bookDialog.close());
+
+bookDialog.addEventListener('click',event=>{
+  if(event.target===bookDialog) bookDialog.close();
+});
 """
+
 
 
 # ------------------------------------------------------------------ helpers
@@ -628,7 +1010,13 @@ def book_page(b, site, S, lang, with_index, search=None):
 
 
 def index_page(books, site, S, lang):
-    cards = []
+    cards = [
+        '<button type="button" class="cardlink add-book-card" '
+        'id="open-book-form">'
+        '<div class="add-book-icon">+</div>'
+        '<div class="t">Add book(s)</div>'
+        '</button>'
+             ]
     for b in books:
         if b.get("processing"):
             badge = '<span class="badge processing-badge">Processing…</span>'
@@ -648,10 +1036,53 @@ def index_page(books, site, S, lang):
     count = S["count"].format(n=len(books))
 
     form_html = """
+    <dialog id="book-form-dialog" class="book-form-dialog">
+    <button type="button" id="close-book-form"
+            class="book-form-close" aria-label="Close">×</button>
     <section class="submission">
         <h2>Add books</h2>
 
         <form id="book-form">
+            
+            <div class="barcode-scanner">
+                <p><strong>Add a book by ISBN</strong><br>
+                   Scan the barcode with your camera or enter the ISBN manually.</p>
+            
+                <div class="barcode-actions">
+                    <button type="button" id="start-barcode-scan" class="primary">
+                        Scan barcode
+                    </button>
+                    <button type="button" id="stop-barcode-scan" hidden>
+                        Stop camera
+                    </button>
+                </div>
+            
+                <div class="barcode-video-container" hidden>
+                    <video id="barcode-video" playsinline></video>
+                    <div class="barcode-scan-frame">
+                        <span></span>
+                    </div>
+                </div>
+            
+                <div class="barcode-isbn-input">
+                    <input
+                        type="text"
+                        id="barcode-isbn"
+                        inputmode="numeric"
+                        placeholder="Enter ISBN-13"
+                        maxlength="17"
+                        aria-label="ISBN-13">
+                    <button type="button" id="lookup-isbn">
+                        Look up
+                    </button>
+                </div>
+            
+                <div id="barcode-message" role="status" aria-live="polite"></div>
+                <div id="barcode-preview" hidden></div>
+            </div>
+            
+            <div id="barcode-library"></div>
+
 
             <div id="book-entries">
 
@@ -709,14 +1140,21 @@ def index_page(books, site, S, lang):
 
         </form>
     </section>
+    </dialog>
     """
 
     submission_js = """
     <script>
     let turnstileToken = "";
     let bookCount = 1;
-
+    
+    const isLocalTest =
+        window.location.hostname === "localhost" &&
+        window.location.port === "8000";
+        
     window.onTurnstileLoaded = function () {
+        if (isLocalTest || typeof turnstile === "undefined") return;
+
         turnstile.render("#turnstile-widget", {
             sitekey: "0x4AAAAAAGRIEytKju80-3JK",
             callback: function (token) {
@@ -735,12 +1173,265 @@ def index_page(books, site, S, lang):
     const addButton = document.getElementById("add-book");
     
     
+const isbnInput = document.getElementById("barcode-isbn");
+const isbnLookupButton = document.getElementById("lookup-isbn");
+const barcodeMessage = document.getElementById("barcode-message");
+const barcodePreview = document.getElementById("barcode-preview");
+const GOOGLE_BOOKS_API_KEY = "AIzaSyAO1zVscbNC1hhi99wqqdypBXZwxtUL8cw"
+
+let currentBookMetadata = null;
+
+function normalizeISBN(value) {
+    return value.replace(/[\\s-]/g, "");
+}
+
+function isValidISBN13(isbn) {
+    if (!/^97[89]\\d{10}$/.test(isbn)) return false;
+
+    const sum = [...isbn].reduce(
+        (total, digit, index) =>
+            total + Number(digit) * (index % 2 === 0 ? 1 : 3),
+        0
+    );
+
+    return sum % 10 === 0;
+}
+
+async function lookupISBN() {
+    const isbn = normalizeISBN(isbnInput.value);
+
+    barcodePreview.hidden = true;
+    barcodePreview.innerHTML = "";
+    currentBookMetadata = null;
+
+    if (!isValidISBN13(isbn)) {
+        barcodeMessage.textContent =
+            "Please enter a valid ISBN-13.";
+        return;
+    }
+
+    isbnLookupButton.disabled = true;
+    barcodeMessage.textContent = "Looking up book...";
+
+    try {
+        const url =
+            "https://www.googleapis.com/books/v1/volumes?q=" +
+            encodeURIComponent("isbn:" + isbn) +
+            "&maxResults=5" +
+            "&key=" + encodeURIComponent(GOOGLE_BOOKS_API_KEY);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            const details = await response.text();
+            throw new Error(
+                `Google Books returned HTTP ${response.status}: ${details.slice(0, 300)}`
+            );
+        }
+
+        const data = await response.json();
+
+        if (!data.items || data.items.length === 0) {
+            throw new Error("No book found for this ISBN.");
+        }
+
+        const book = data.items.find(item =>
+            item.volumeInfo?.industryIdentifiers?.some(identifier =>
+                identifier.type === "ISBN_13" &&
+                identifier.identifier === isbn
+            )
+        ) || data.items[0];
+
+        const info = book.volumeInfo || {};
+
+        if (!info.title || !info.authors?.length) {
+            throw new Error("Book metadata is incomplete.");
+        }
+
+        currentBookMetadata = {
+            isbn,
+            title: info.title,
+            author: info.authors.join(", "),
+            publisher: info.publisher || "",
+            language: info.language === "de" ? "de" : "en",
+            cover: info.imageLinks?.thumbnail || ""
+        };
+
+        renderBookPreview(currentBookMetadata);
+
+        barcodeMessage.textContent =
+            "Book found. Check the details before adding it.";
+
+    } catch (error) {
+        barcodeMessage.textContent = error.message;
+    } finally {
+        isbnLookupButton.disabled = false;
+    }
+}
+
+
+function renderBookPreview(book) {
+    barcodePreview.innerHTML = "";
+
+    const card = document.createElement("div");
+    card.className = "barcode-book-card";
+
+    if (book.cover) {
+        const image = document.createElement("img");
+        image.className = "barcode-book-cover";
+        image.src = book.cover.replace("http://", "https://");
+        image.alt = "Cover of " + book.title;
+        card.appendChild(image);
+    }
+
+    const details = document.createElement("div");
+    details.className = "barcode-book-details";
+
+    const title = document.createElement("strong");
+    title.className = "barcode-book-title";
+    title.textContent = book.title;
+    details.appendChild(title);
+
+    const author = document.createElement("p");
+    author.className = "barcode-book-author";
+    author.textContent = book.author;
+    details.appendChild(author);
+
+    if (book.publisher) {
+        const publisher = document.createElement("p");
+        publisher.className = "barcode-book-publisher";
+        publisher.textContent = book.publisher;
+        details.appendChild(publisher);
+    }
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "barcode-book-add";
+    button.textContent = "Add to form";
+    button.addEventListener("click", addBookMetadata);
+
+    details.appendChild(button);
+    card.appendChild(details);
+    barcodePreview.appendChild(card);
+
+    barcodePreview.hidden = false;
+}
+
+
+
+    async function addBookMetadata() {
+        if (!currentBookMetadata) return;
+    
+        let allEntries = [...entries.querySelectorAll(".book-entry")];
+        let target = allEntries[allEntries.length - 1];
+    
+        const hasContent = [...target.querySelectorAll(
+            'input[name="title"], input[name="author"]'
+        )].some(input => input.value.trim());
+    
+        if (hasContent) {
+            addButton.click();
+            allEntries = [...entries.querySelectorAll(".book-entry")];
+            target = allEntries[allEntries.length - 1];
+        }
+    
+        const book = currentBookMetadata;
+    
+        target.querySelector('[name="title"]').value = book.title;
+        target.querySelector('[name="author"]').value = book.author;
+        target.querySelector('[name="publisher"]').value = book.publisher;
+        target.querySelector('[name="lang"]').value = book.language;
+    
+        target.querySelectorAll(
+            '[name="title"], [name="author"], [name="publisher"], [name="lang"]'
+        ).forEach(input => {
+            input.dispatchEvent(new Event("input", { bubbles: true }));
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+    
+        setEntryCollapsed(target, false);
+    
+        const coverInput = target.querySelector('input[name="cover"]');
+        let coverAdded = false;
+    
+        if (book.cover && coverInput) {
+            try {
+                barcodeMessage.textContent =
+                    "Adding book and downloading cover...";
+    
+                const coverUrl =
+                    "https://library-submissions-test.thisamail2.workers.dev/cover?url=" +
+                    encodeURIComponent(
+                        book.cover.replace(/^http:\\/\\//i, "https://")
+                    );
+                
+                const response = await fetch(coverUrl);
+    
+                if (!response.ok) {
+                    throw new Error("Cover download failed.");
+                }
+    
+                const blob = await response.blob();
+    
+                if (!blob.type.startsWith("image/")) {
+                    throw new Error("Downloaded file is not an image.");
+                }
+    
+                const extension = {
+                    "image/jpeg": "jpg",
+                    "image/png": "png",
+                    "image/webp": "webp",
+                    "image/gif": "gif"
+                }[blob.type] || "jpg";
+    
+                const file = new File(
+                    [blob],
+                    `cover-${book.isbn}.${extension}`,
+                    { type: blob.type }
+                );
+    
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                coverInput.files = transfer.files;
+    
+                coverInput.dispatchEvent(
+                    new Event("change", { bubbles: true })
+                );
+    
+                coverAdded = true;
+    
+            } catch (error) {
+                console.warn("Could not automatically download book cover:", error);
+            }
+        }
+    
+        barcodeMessage.textContent = coverAdded
+            ? "Book and cover added to the form. You can edit the details."
+            : "Book added to the form. Please upload the cover manually if needed.";
+    
+        barcodePreview.hidden = true;
+        isbnInput.value = "";
+        currentBookMetadata = null;
+    }
+
+
+isbnLookupButton.addEventListener("click", lookupISBN);
+
+isbnInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        lookupISBN();
+    }
+});
+
+    
+    
     
 async function monitorProcessing(status, submissionMessage, submissionStartedAt) {
     const storageKey = "libraryProcessingMonitor";
 
     const statusUrl =
-        "https://library-submissions.thisamail2.workers.dev/status?since=" +
+        "https://library-submissions-test.thisamail2.workers.dev/status?since=" +
         encodeURIComponent(submissionStartedAt);
 
     let monitorData = JSON.parse(
@@ -774,6 +1465,7 @@ async function monitorProcessing(status, submissionMessage, submissionStartedAt)
                 submissionMessage + "\\n\\n⏳ " + data.message;
 
             if (data.state === "pending_ready" && !monitorData.pendingReloaded) {
+                document.getElementById("book-form-dialog")?.close();
                 monitorData.pendingReloaded = true;
                 sessionStorage.setItem(storageKey, JSON.stringify(monitorData));
 
@@ -994,7 +1686,7 @@ function setupEntry(entry) {
         const button = document.getElementById("submit-book");
         const status = document.getElementById("submission-status");
 
-        if (!turnstileToken) {
+        if (!isLocalTest && !turnstileToken) {
             status.textContent = "Please complete the security verification.";
             return;
         }
@@ -1016,7 +1708,7 @@ function setupEntry(entry) {
         try {
             const submissionStartedAt = new Date().toISOString();
             const response = await fetch(
-                "https://library-submissions.thisamail2.workers.dev",
+                "https://library-submissions-test.thisamail2.workers.dev",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -1084,7 +1776,9 @@ function setupEntry(entry) {
                 monitorProcessing(status, messages.join("\\n"), submissionStartedAt);
             }
             
-            turnstile.reset();
+            if (!isLocalTest && typeof turnstile !== "undefined") {
+                turnstile.reset();
+            }
             turnstileToken = "";
 
             entries.querySelectorAll(".book-entry:not(:first-child)").forEach(
@@ -1096,18 +1790,134 @@ function setupEntry(entry) {
             entries.querySelector(".cover-preview").style.display = "none";
 
             updateBookNumbers();
-            turnstile.reset();
+            if (!isLocalTest && typeof turnstile !== "undefined") {
+                turnstile.reset();
+            }
             turnstileToken = "";
 
         } catch (error) {
             status.textContent = error.message;
-            turnstile.reset();
+            if (!isLocalTest && typeof turnstile !== "undefined") {
+                turnstile.reset();
+            }
             turnstileToken = "";
 
         } finally {
             button.disabled = false;
             addButton.disabled = false;
         }
+    });
+    
+    // Camera-based ISBN barcode scanning
+    const startBarcodeScanButton = document.getElementById("start-barcode-scan");
+    const stopBarcodeScanButton = document.getElementById("stop-barcode-scan");
+    const barcodeVideo = document.getElementById("barcode-video");
+    const barcodeVideoContainer = document.querySelector(".barcode-video-container");    
+    let barcodeScanControls = null;
+    let barcodeScanActive = false;
+
+    function stopBarcodeScan() {
+        barcodeScanActive = false;
+    
+        if (barcodeScanControls) {
+            barcodeScanControls.stop();
+            barcodeScanControls = null;
+        }
+    
+        barcodeVideo.pause();
+        barcodeVideo.srcObject = null;
+    
+        barcodeVideoContainer.hidden = true;
+    
+        startBarcodeScanButton.hidden = false;
+        stopBarcodeScanButton.hidden = true;
+    }
+
+    
+    startBarcodeScanButton.addEventListener("click", async () => {
+        if (!window.isSecureContext) {
+            barcodeMessage.textContent =
+                "Camera access requires HTTPS or localhost.";
+            return;
+        }
+    
+        if (typeof ZXingBrowser === "undefined") {
+            barcodeMessage.textContent =
+                "Barcode scanner library could not be loaded.";
+            return;
+        }
+    
+        barcodeScanActive = true;
+        startBarcodeScanButton.hidden = true;
+        stopBarcodeScanButton.hidden = false;
+    
+        barcodeVideoContainer.hidden = false;
+    
+        barcodeMessage.textContent =
+            "Starting camera… Point it at the ISBN barcode.";
+    
+        const reader = new ZXingBrowser.BrowserMultiFormatReader();
+    
+        try {
+            const controls = await reader.decodeFromVideoDevice(
+                undefined,
+                barcodeVideo,
+                async (result, error, callbackControls) => {
+                    if (!result || !barcodeScanActive) return;
+    
+                    const isbn = normalizeISBN(result.getText());
+    
+                    if (!isValidISBN13(isbn)) {
+                        barcodeMessage.textContent =
+                            "Barcode detected, but it is not a valid ISBN-13. Keep scanning.";
+                        return;
+                    }
+    
+                    barcodeScanActive = false;
+    
+                    if (callbackControls) {
+                        callbackControls.stop();
+                    }
+    
+                    barcodeScanControls = null;
+                    stopBarcodeScanButton.hidden = true;
+                    startBarcodeScanButton.hidden = false;
+    
+                    barcodeVideo.pause();
+                    barcodeVideo.srcObject = null;
+                    barcodeVideoContainer.hidden = true;
+    
+                    isbnInput.value = isbn;
+                    barcodeMessage.textContent =
+                        "ISBN detected: " + isbn + ". Looking up book…";
+    
+                    await lookupISBN();
+                }
+            );
+    
+            barcodeScanControls = controls;
+    
+            // Handle the possibility that the user stopped while the camera
+            // permission prompt was still open.
+            if (!barcodeScanActive) {
+                controls.stop();
+                barcodeScanControls = null;
+            }
+        } catch (error) {
+            console.error("Barcode scanner error:", error);
+    
+            stopBarcodeScan();
+    
+            barcodeMessage.textContent =
+                error.name === "NotAllowedError"
+                    ? "Camera access was denied. Please allow camera access in your browser."
+                    : "Could not start the camera: " + error.message;
+        }
+    });
+    
+    stopBarcodeScanButton.addEventListener("click", () => {
+        stopBarcodeScan();
+        barcodeMessage.textContent = "Camera stopped.";
     });
     </script>
     """
@@ -1128,7 +1938,20 @@ function setupEntry(entry) {
 </div>
 </main>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoaded&render=explicit" async defer></script>
+<script>
+if (
+    window.location.hostname !== "localhost" ||
+    window.location.port !== "8000"
+) {{
+    const script = document.createElement("script");
+    script.src =
+        "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoaded&render=explicit";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+}}
+</script>
+<script src="https://unpkg.com/@zxing/browser@0.2.1"></script>
 {submission_js}
 <script>{INDEX_JS}</script>
 </body>
