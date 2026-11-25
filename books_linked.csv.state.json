@@ -1,25 +1,30 @@
 {
  "furcht und elend des 3 reichs|bertolt brecht|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "butter|asako yuzuki|en|storytel": {
   "result": "found",
   "score": 1.0,
   "ts": "2026-11-25",
-  "misses": 0
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  },
  "butter|asako yuzuki|en|bookbeat": {
   "result": "found",
   "score": 0.952,
   "ts": "2026-11-25",
-  "misses": 0
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  },
  "the christmas tree farm|laurie gilmore|en|storytel": {
   "result": "found",
   "score": 0.952,
   "ts": "2026-11-25",
-  "misses": 0
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  },
  "das parfum|susskind|de|storytel": {
   "result": "review",
@@ -38,11 +43,13 @@
  },
  "becoming elektra|christian handel|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "die sanfte|fjodor m dostojewski|de|audible": {
   "result": "review",
-  "score": 0.702,
+  "score": 0.493,
   "ts": "2026-11-25"
  },
  "des teufels general|carl zuckmayer|de|audible": {
@@ -117,7 +124,9 @@
  },
  "die reinheit des morders|amelie nothomb|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "die schonen und verdammten|f scott fitzgerald|de|storytel": {
   "result": "review",
@@ -126,19 +135,27 @@
  },
  "die schonen und verdammten|f scott fitzgerald|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "die nachtwachen des bonaventura|august von klingemann|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "wiccacreed zeichen omen|marah woolf|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "wiccacreed zeichen omen|marah woolf|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "das kind|sebastian fitzek|de|storytel": {
   "result": "review",
@@ -152,7 +169,9 @@
  },
  "the village library demon hunting society|c m waggoner|en|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "hold me now|julie chapel|de|audible": {
   "result": "review",
@@ -186,11 +205,15 @@
  },
  "forever free san teresa university|kara atkin||storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "forever free san teresa university|kara atkin||bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "like snow we fall|ayla dade||storytel": {
   "result": "review",
@@ -199,7 +222,9 @@
  },
  "like snow we fall|ayla dade||bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "drive me crazy|carly robyn|en|audible": {
   "result": "review",
@@ -213,11 +238,15 @@
  },
  "mit kalter prazision|michael tsokos|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "mit kalter prazision|michael tsokos|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "mimik|sebastian fitzek|de|storytel": {
   "result": "review",
@@ -256,7 +285,9 @@
  },
  "dunkler see der angst|carayon|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "heart of fire|l h wild a m payne||audible": {
   "result": "review",
@@ -285,12 +316,16 @@
  },
  "kiss of thunder|l h wild a m payne||bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "court of sun|lexi ryan||storytel": {
-  "result": "review",
-  "score": 0.59,
-  "ts": "2026-11-25"
+  "result": "found",
+  "score": 0.877,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  },
  "court of sun|lexi ryan||bookbeat": {
   "result": "review",
@@ -339,11 +374,15 @@
  },
  "das drama des begabten kindes|alice miller|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "das drama des begabten kindes|alice miller|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "mythen des alltags|roland barthes|de|audible": {
   "result": "review",
@@ -357,17 +396,22 @@
  },
  "mythen des alltags|roland barthes|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "anna karenina|leo tolstoi|de|storytel": {
   "result": "found",
   "score": 0.952,
   "ts": "2026-11-25",
-  "misses": 0
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  },
  "der merkwurdige fall von dr jekyll und mr hyde|robert louis stevenson|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "dracula|bram stoker|de|storytel": {
   "result": "review",
@@ -401,11 +445,15 @@
  },
  "mission erde die welt ist es wert um sie zu kampfen|lehmann|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "mission erde die welt ist es wert um sie zu kampfen|lehmann|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "maria magdalena|friedrich hebbel|de|audible": {
   "result": "review",
@@ -439,15 +487,19 @@
  },
  "lyrische dramen|hugo von hofmannsthal|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "lyrische dramen|hugo von hofmannsthal|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "cleopatra|daniel casper von lohenstein|de|audible": {
   "result": "review",
-  "score": 0.247,
+  "score": 0.552,
   "ts": "2026-11-25"
  },
  "cleopatra|daniel casper von lohenstein|de|storytel": {
@@ -467,7 +519,9 @@
  },
  "penthesilea ein trauerspiel|heinrich von kleist|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "lulu|frank wedekind|de|audible": {
   "result": "review",
@@ -528,7 +582,8 @@
   "result": "found",
   "score": 0.963,
   "ts": "2026-11-25",
-  "misses": 0
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  },
  "alexanderroman|lambrecht|de|audible": {
   "result": "review",
@@ -542,7 +597,9 @@
  },
  "alexanderroman|lambrecht|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "tristan band 2|gottfried von strassburg|de|storytel": {
   "result": "review",
@@ -551,7 +608,9 @@
  },
  "tristan band 2|gottfried von strassburg|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "das herzmaere und andere verserzahlungen|konrad von wurzburg|de|audible": {
   "result": "review",
@@ -560,11 +619,15 @@
  },
  "das herzmaere und andere verserzahlungen|konrad von wurzburg|de|storytel": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "das herzmaere und andere verserzahlungen|konrad von wurzburg|de|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "kleine grosse schritte|jodi picoult|de|storytel": {
   "result": "review",
@@ -583,7 +646,9 @@
  },
  "the great gatsby and other works|f scott fitzgerald|en|bookbeat": {
   "result": "none",
-  "ts": "2026-11-25"
+  "ts": "2026-11-25",
+  "misses": 1,
+  "last_refresh_week": "2026-W48"
  },
  "yes we can|thomas||audible": {
   "result": "review",
@@ -619,7 +684,8 @@
   "result": "found",
   "score": 0.952,
   "ts": "2026-11-25",
-  "misses": 0
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  },
  "macbeth|william shakespeare|en|bookbeat": {
   "result": "review",
@@ -650,5 +716,1877 @@
   "result": "review",
   "score": 0.558,
   "ts": "2026-11-25"
+ },
+ "lady macbeth|ava reid|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "lady macbeth|ava reid|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "lady macbeth|ava reid|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "furcht und elend des 3 reichs|bertolt brecht|de|audible": {
+  "result": "review",
+  "score": 0.263,
+  "ts": "2026-11-25"
+ },
+ "furcht und elend des 3 reichs|bertolt brecht|de|storytel": {
+  "result": "found",
+  "score": 0.82,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "big bad wolf|laurie gilmore|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "big bad wolf|laurie gilmore|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "big bad wolf|laurie gilmore|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "butter|asako yuzuki|en|audible": {
+  "result": "review",
+  "score": 0.552,
+  "ts": "2026-11-25"
+ },
+ "the christmas tree farm|laurie gilmore|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the christmas tree farm|laurie gilmore|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "das parfum|susskind|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "becoming elektra|christian handel|de|bookbeat": {
+  "result": "found",
+  "score": 0.965,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the serpent and the wings of the night|carissa broadbent||audible": {
+  "result": "found",
+  "score": 0.967,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the serpent and the wings of the night|carissa broadbent||storytel": {
+  "result": "found",
+  "score": 0.967,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the serpent and the wings of the night|carissa broadbent||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "girl goddess queen|bea fitzgerald||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "girl goddess queen|bea fitzgerald||storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "girl goddess queen|bea fitzgerald||bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "queen of myth and monsters|scarlett st clair||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "queen of myth and monsters|scarlett st clair||storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "queen of myth and monsters|scarlett st clair||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a game of fate|scarlett st clair||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a game of fate|scarlett st clair||storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a game of fate|scarlett st clair||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a touch of chaos|scarlett st clair||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a touch of chaos|scarlett st clair||storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a touch of chaos|scarlett st clair||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "tom sawyers abenteuer|mark twain|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "tom sawyers abenteuer|mark twain|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "tom sawyers abenteuer|mark twain|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die sanfte|fjodor m dostojewski|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die sanfte|fjodor m dostojewski|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ein zimmer fur sich allein|virginia woolf|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ein zimmer fur sich allein|virginia woolf|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ein zimmer fur sich allein|virginia woolf|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "buddenbrooks|thomas mann|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "buddenbrooks|thomas mann|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "buddenbrooks|thomas mann|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "des teufels general|carl zuckmayer|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "corpus delicti|juli zeh|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "corpus delicti|juli zeh|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "corpus delicti|juli zeh|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "lied der weite|kent haruf|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "lied der weite|kent haruf|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "lied der weite|kent haruf|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der letzte tag eines verurteilten|victor hugo|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der letzte tag eines verurteilten|victor hugo|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der letzte tag eines verurteilten|victor hugo|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "drei geschichten|gustave flaubert|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "mit staunen und zittern|amelie nothomb|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die schonen und verdammten|f scott fitzgerald|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ilias odyssee|homer|de|audible": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ilias odyssee|homer|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ilias odyssee|homer|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die nachtwachen des bonaventura|august von klingemann|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die nachtwachen des bonaventura|august von klingemann|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "sturmhohe|emily bronte|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "sturmhohe|emily bronte|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "sturmhohe|emily bronte|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "crescent city|sarah j maas|de|audible": {
+  "result": "review",
+  "score": 0.595,
+  "ts": "2026-11-25"
+ },
+ "crescent city|sarah j maas|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "crescent city|sarah j maas|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wiccacreed zeichen omen|marah woolf|de|audible": {
+  "result": "review",
+  "score": 0.269,
+  "ts": "2026-11-25"
+ },
+ "bekenntnisse des hochstaplers felix krull|thomas mann|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bekenntnisse des hochstaplers felix krull|thomas mann|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bekenntnisse des hochstaplers felix krull|thomas mann|de|bookbeat": {
+  "result": "found",
+  "score": 0.972,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "das kind|sebastian fitzek|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the village library demon hunting society|c m waggoner|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the village library demon hunting society|c m waggoner|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der erwahlte|thomas mann|de|audible": {
+  "result": "found",
+  "score": 0.812,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der erwahlte|thomas mann|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der erwahlte|thomas mann|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "sea of tranquility|emily st john mandel|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "sea of tranquility|emily st john mandel|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "sea of tranquility|emily st john mandel|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die chemie des verbrechens die fahrte|sabine weiss|de|audible": {
+  "result": "review",
+  "score": 0.655,
+  "ts": "2026-11-25"
+ },
+ "die chemie des verbrechens die fahrte|sabine weiss|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die chemie des verbrechens die fahrte|sabine weiss|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the subtle art of not giving a f ck|mark manson|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the subtle art of not giving a f ck|mark manson|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the subtle art of not giving a f ck|mark manson|en|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wenn der frost dein herz beruhrt|brittainy cherry|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wenn der frost dein herz beruhrt|brittainy cherry|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wenn der frost dein herz beruhrt|brittainy cherry|de|bookbeat": {
+  "result": "found",
+  "score": 0.965,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "inifinity falling mess me up|sarah sprinz|de|audible": {
+  "result": "review",
+  "score": 0.29,
+  "ts": "2026-11-25"
+ },
+ "inifinity falling mess me up|sarah sprinz|de|storytel": {
+  "result": "found",
+  "score": 0.836,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "inifinity falling mess me up|sarah sprinz|de|bookbeat": {
+  "result": "found",
+  "score": 0.8,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wie die luft zum atmen|brittainy cherry|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wie die luft zum atmen|brittainy cherry|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wie die luft zum atmen|brittainy cherry|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "more than words|mia sheridan||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "more than words|mia sheridan||storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "more than words|mia sheridan||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der herr der ringe|j r r tolkien|de|audible": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der herr der ringe|j r r tolkien|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der herr der ringe|j r r tolkien|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "forever free san teresa university|kara atkin||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bet on you|morgane moncomble||audible": {
+  "result": "review",
+  "score": 0.75,
+  "ts": "2026-11-25"
+ },
+ "bet on you|morgane moncomble||storytel": {
+  "result": "review",
+  "score": 0.75,
+  "ts": "2026-11-25"
+ },
+ "bet on you|morgane moncomble||bookbeat": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-25"
+ },
+ "like snow we fall|ayla dade||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "dont love me|lena kiefer|de|audible": {
+  "result": "found",
+  "score": 0.976,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "dont love me|lena kiefer|de|storytel": {
+  "result": "found",
+  "score": 0.976,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "dont love me|lena kiefer|de|bookbeat": {
+  "result": "found",
+  "score": 0.897,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bis zum hellsten morgen|brittainy cherry|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bis zum hellsten morgen|brittainy cherry|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bis zum hellsten morgen|brittainy cherry|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wir sind das feuer|malou bichon|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wir sind das feuer|malou bichon|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wir sind das feuer|malou bichon|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "drive me crazy|carly robyn|en|bookbeat": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-25"
+ },
+ "passagier 23|sebastian fitzek|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "passagier 23|sebastian fitzek|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "passagier 23|sebastian fitzek|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "mit kalter prazision|michael tsokos|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "mimik|sebastian fitzek|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "schwesterherz|ohlsson|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "schwesterherz|ohlsson|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "schwesterherz|ohlsson|de|bookbeat": {
+  "result": "review",
+  "score": 0.75,
+  "ts": "2026-11-25"
+ },
+ "sleeping beauties|stephen king|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "sleeping beauties|stephen king|de|storytel": {
+  "result": "review",
+  "score": 0.59,
+  "ts": "2026-11-25"
+ },
+ "revival|stephen king|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "revival|stephen king|de|storytel": {
+  "result": "review",
+  "score": 0.59,
+  "ts": "2026-11-25"
+ },
+ "wenn kinder toten|harbort|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "wenn kinder toten|harbort|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bridge kingdom der schwur der spionin|danielle l jensen|de|audible": {
+  "result": "found",
+  "score": 0.847,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bridge kingdom der schwur der spionin|danielle l jensen|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "bridge kingdom der schwur der spionin|danielle l jensen|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "cards of love die magie des todes|nina tramountani|de|audible": {
+  "result": "found",
+  "score": 0.838,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "cards of love die magie des todes|nina tramountani|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "cards of love die magie des todes|nina tramountani|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a dark and hollow star|ashley shuttleworth||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a dark and hollow star|ashley shuttleworth||storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a dark and hollow star|ashley shuttleworth||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "fighting fate|j c dorne||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "fighting fate|j c dorne||storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "fighting fate|j c dorne||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "das neunte haus|leigh bardugo|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "das neunte haus|leigh bardugo|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "das neunte haus|leigh bardugo|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "court of sun|lexi ryan||audible": {
+  "result": "review",
+  "score": 0.75,
+  "ts": "2026-11-25"
+ },
+ "we conquer the dark|scott||audible": {
+  "result": "review",
+  "score": 0.59,
+  "ts": "2026-11-25"
+ },
+ "der sturm|william shakespeare|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "tonio kroger mario und der zauberer|thomas mann|de|storytel": {
+  "result": "found",
+  "score": 0.863,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "tonio kroger mario und der zauberer|thomas mann|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die letzten tage der menschheit|karl kraus|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die letzten tage der menschheit|karl kraus|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die letzten tage der menschheit|karl kraus|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "das drama des begabten kindes|alice miller|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "anna karenina|leo tolstoi|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "anna karenina|leo tolstoi|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "eine geschichte aus zwei stadten|charles dickens|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "eine geschichte aus zwei stadten|charles dickens|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "eine geschichte aus zwei stadten|charles dickens|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der merkwurdige fall von dr jekyll und mr hyde|robert louis stevenson|de|audible": {
+  "result": "review",
+  "score": 0.251,
+  "ts": "2026-11-25"
+ },
+ "der merkwurdige fall von dr jekyll und mr hyde|robert louis stevenson|de|storytel": {
+  "result": "found",
+  "score": 0.858,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der prozess|franz kafka|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der prozess|franz kafka|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der prozess|franz kafka|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "frankenstein oder der moderne prometheus|mary shelley|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "frankenstein oder der moderne prometheus|mary shelley|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "frankenstein oder der moderne prometheus|mary shelley|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "dracula|bram stoker|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "dracula|bram stoker|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "zur verteidigung der demokratie|thomas mann|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "madly deeply|alan rickman|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "farm der tiere|george orwell|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "farm der tiere|george orwell|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "farm der tiere|george orwell|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die elixiere des teufels|e t a hoffmann|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die elixiere des teufels|e t a hoffmann|de|storytel": {
+  "result": "found",
+  "score": 0.965,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die elixiere des teufels|e t a hoffmann|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "nussknacker und mausekonig|e t a hoffmann|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "nussknacker und mausekonig|e t a hoffmann|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "nussknacker und mausekonig|e t a hoffmann|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "faust der tragodie erster teil|johann wolfgang von goethe|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "faust der tragodie erster teil|johann wolfgang von goethe|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "faust der tragodie erster teil|johann wolfgang von goethe|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "elektra|hugo von hofmannsthal|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "masse mensch|ernst toller|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "masse mensch|ernst toller|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "masse mensch|ernst toller|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die leiden des jungen werthers|johann wolfgang von goethe|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die leiden des jungen werthers|johann wolfgang von goethe|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "die leiden des jungen werthers|johann wolfgang von goethe|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "penthesilea ein trauerspiel|heinrich von kleist|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "woyzeck|georg buchner|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "woyzeck|georg buchner|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "woyzeck|georg buchner|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "nathan der weise|gotthold ephraim lessing|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "nathan der weise|gotthold ephraim lessing|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "nathan der weise|gotthold ephraim lessing|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "emilia galotti|gotthold ephraim lessing|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "emilia galotti|gotthold ephraim lessing|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "emilia galotti|gotthold ephraim lessing|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "reigen|arthur schnitzler|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "reigen|arthur schnitzler|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "reigen|arthur schnitzler|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "stine|theodor fontane|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "stine|theodor fontane|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "stine|theodor fontane|de|bookbeat": {
+  "result": "review",
+  "score": 0.702,
+  "ts": "2026-11-25"
+ },
+ "der geisterseher|friedrich schiller|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der geisterseher|friedrich schiller|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der geisterseher|friedrich schiller|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "maria stuart|friedrich schiller|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "maria stuart|friedrich schiller|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "maria stuart|friedrich schiller|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "macbeth|william shakespeare|de|audible": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "macbeth|william shakespeare|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "macbeth|william shakespeare|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "viel larm um nichts|william shakespeare|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "viel larm um nichts|william shakespeare|de|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "viel larm um nichts|william shakespeare|de|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "tristan band 2|gottfried von strassburg|de|audible": {
+  "result": "review",
+  "score": 0.308,
+  "ts": "2026-11-25"
+ },
+ "der arme heinrich|hartmann von aue|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der arme heinrich|hartmann von aue|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "der arme heinrich|hartmann von aue|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the way i used to be|amber smith||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the way i used to be|amber smith||storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the way i used to be|amber smith||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a nervous breakdown|anton chekhov||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a nervous breakdown|anton chekhov||storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "a nervous breakdown|anton chekhov||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "kleine grosse schritte|jodi picoult|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ich bin die nacht|ethan cross|de|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ich bin die nacht|ethan cross|de|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "ich bin die nacht|ethan cross|de|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "gone girl|gillian flynn||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "gone girl|gillian flynn||storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "gone girl|gillian flynn||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "more days at the morisaki bookshop|satoshi yagisawa|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "more days at the morisaki bookshop|satoshi yagisawa|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "more days at the morisaki bookshop|satoshi yagisawa|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the wizard of oz|l frank baum|en|audible": {
+  "result": "review",
+  "score": 0.293,
+  "ts": "2026-11-25"
+ },
+ "the wizard of oz|l frank baum|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the wizard of oz|l frank baum|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the great gatsby and other works|f scott fitzgerald|en|storytel": {
+  "result": "found",
+  "score": 0.8,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "emily wilde s encyclopaedia of faeries|heather fawcett|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "emily wilde s encyclopaedia of faeries|heather fawcett|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "these violent delights|chloe gong|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "these violent delights|chloe gong|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "these violent delights|chloe gong|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the healing season of pottery|yeon somin|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the healing season of pottery|yeon somin|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the healing season of pottery|yeon somin|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "how women decide|therese huston|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "how women decide|therese huston|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "how women decide|therese huston|en|bookbeat": {
+  "result": "none",
+  "misses": 1,
+  "ts": "2026-11-25",
+  "last_refresh_week": "2026-W48"
+ },
+ "divine rivals|rebecca ross||audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "divine rivals|rebecca ross||storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "divine rivals|rebecca ross||bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "romeo and juliet|william shakespeare|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "romeo and juliet|william shakespeare|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "as you like it|william shakespeare|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "as you like it|william shakespeare|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "as you like it|william shakespeare|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "much ado about nothing|william shakespeare|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "much ado about nothing|william shakespeare|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "much ado about nothing|william shakespeare|en|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "hamlet|william shakespeare|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "hamlet|william shakespeare|en|bookbeat": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "graveyard shift|m l rio|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "graveyard shift|m l rio|en|storytel": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the graveyard book|neil gaiman|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the graveyard book|neil gaiman|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the graveyard book|neil gaiman|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "asking for it|louise o neill|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "asking for it|louise o neill|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "our wives under the sea|julia armfield|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "our wives under the sea|julia armfield|en|storytel": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "our wives under the sea|julia armfield|en|bookbeat": {
+  "result": "found",
+  "score": 0.952,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
+ },
+ "the joy of small things|parkinson|en|audible": {
+  "result": "found",
+  "score": 1.0,
+  "ts": "2026-11-25",
+  "misses": 0,
+  "last_refresh_week": "2026-W48"
  }
 }
