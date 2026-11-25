@@ -1083,7 +1083,7 @@ function setupEntry(entry) {
                     "Your submission was successful. Preparing the updated library..."
                 );
             
-                monitorProcessing(status, messages.join("\n"), submissionStartedAt);
+                monitorProcessing(status, messages.join("\\n"), submissionStartedAt);
             }
             
             if (!isLocalTest && typeof turnstile !== "undefined") {
