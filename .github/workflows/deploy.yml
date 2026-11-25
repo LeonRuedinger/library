@@ -3,18 +3,13 @@ name: Build and deploy website
 
 on: [workflow_dispatch]
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
 jobs:
-  build-and-deploy:
+  # 1. Build and upload the placeholder website
+  build-pending:
     runs-on: ubuntu-latest
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment-final.outputs.page_url }}
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
@@ -30,7 +25,6 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
-      # First publish: show the new book with a processing placeholder.
       - name: Generate website with processing placeholders
         run: |
           python bookpages.py books_linked.csv \
@@ -41,13 +35,43 @@ jobs:
       - name: Upload pending website
         uses: actions/upload-pages-artifact@v4
         with:
+          name: github-pages-pending
           path: ./site
 
+  # 2. Deploy placeholders, then scrape and build the final website
+  process-books:
+    needs: build-pending
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment-pending.outputs.page_url }}
+
+    steps:
       - name: Deploy pending website
         id: deployment-pending
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-pending
 
-      # Only install the browser after the pending website is live.
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
       - name: Install Chromium
         run: python -m playwright install --with-deps chromium
 
@@ -78,8 +102,25 @@ jobs:
       - name: Upload final website
         uses: actions/upload-pages-artifact@v4
         with:
+          name: github-pages-final
           path: ./site
 
+  # 3. Deploy the final website
+  deploy-final:
+    needs: process-books
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment-final.outputs.page_url }}
+
+    steps:
       - name: Deploy final website
         id: deployment-final
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-final
