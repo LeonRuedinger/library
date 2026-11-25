@@ -477,10 +477,26 @@ def main():
     }
 
     state = json.load(open(state_path, encoding="utf-8")) if os.path.exists(state_path) else {}
-    state = {
-        k: v for k, v in state.items()
-        if k in active_keys
-    }
+
+    # Migrate legacy keys: title|author|service -> title|author|lang|service
+    for old_key, value in list(state.items()):
+        parts = old_key.split("|")
+        if len(parts) != 3:
+            continue
+
+        title, author, service = parts
+
+        for row in rows:
+            if (
+                    norm(row.get("title", "")) == title
+                    and norm(row.get("author", "")) == author
+                    and service in services
+            ):
+                new_key = f"{title}|{author}|{norm(row.get('lang', ''))}|{service}"
+                state.setdefault(new_key, value)
+                break
+
+    state = {k: v for k, v in state.items() if k in active_keys}
 
     review = []
 
