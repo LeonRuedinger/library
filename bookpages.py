@@ -618,7 +618,7 @@ function renderBookPreview(book) {
                     "Adding book and downloading cover...";
     
                 const coverUrl =
-                    "https://library-submissions-test.thisamail2.workers.dev/cover?url=" +
+                    "https://library-submissions.thisamail2.workers.dev/cover?url=" +
                     encodeURIComponent(
                         book.cover.replace(/^http:\\/\\//i, "https://")
                     );
@@ -689,7 +689,7 @@ async function monitorProcessing(status, submissionMessage, submissionStartedAt)
     const storageKey = "libraryProcessingMonitor";
 
     const statusUrl =
-        "https://library-submissions-test.thisamail2.workers.dev/status?since=" +
+        "https://library-submissions.thisamail2.workers.dev/status?since=" +
         encodeURIComponent(submissionStartedAt);
 
     let monitorData = JSON.parse(
@@ -966,7 +966,7 @@ function setupEntry(entry) {
         try {
             const submissionStartedAt = new Date().toISOString();
             const response = await fetch(
-                "https://library-submissions-test.thisamail2.workers.dev",
+                "https://library-submissions.thisamail2.workers.dev",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
