@@ -438,7 +438,6 @@ const isbnInput = document.getElementById("barcode-isbn");
 const isbnLookupButton = document.getElementById("lookup-isbn");
 const barcodeMessage = document.getElementById("barcode-message");
 const barcodePreview = document.getElementById("barcode-preview");
-const GOOGLE_BOOKS_API_KEY = "AIzaSyAO1zVscbNC1hhi99wqqdypBXZwxtUL8cw"
 
 let currentBookMetadata = null;
 
@@ -476,10 +475,8 @@ async function lookupISBN() {
 
     try {
         const url =
-            "https://www.googleapis.com/books/v1/volumes?q=" +
-            encodeURIComponent("isbn:" + isbn) +
-            "&maxResults=5" +
-            "&key=" + encodeURIComponent(GOOGLE_BOOKS_API_KEY);
+            "https://library-google-books.thisamail2.workers.dev/lookup?isbn=" +
+            encodeURIComponent(isbn);
 
         const response = await fetch(url);
 
