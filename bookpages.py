@@ -1304,7 +1304,11 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
 
 
     # Books present in the master CSV but not yet in the linked CSV
-    index_books = list(books)
+    index_by_key = {
+        norm_key(b["title"], b["author"]): b
+        for b in books
+    }
+    index_books = []
 
     if master_csv and os.path.exists(master_csv):
         with open(master_csv, newline="", encoding="utf-8-sig") as f:
@@ -1325,7 +1329,9 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
             key = norm_key(title, author)
 
             # Already present in the linked CSV
-            if key in seen:
+            # Use the existing book entry, or create a pending placeholder.
+            if key in index_by_key:
+                index_books.append(index_by_key[key])
                 continue
 
             bid = store.get(key, row.get("id", ""))
