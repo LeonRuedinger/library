@@ -86,7 +86,10 @@ const openBookForm=document.getElementById('open-book-form');
 const closeBookForm=document.getElementById('close-book-form');
 
 openBookForm.addEventListener('click',()=>bookDialog.showModal());
-closeBookForm.addEventListener('click',()=>bookDialog.close());
+closeBookForm.addEventListener("click", () => {
+    if (!submissionOverlay.hidden) return;
+    bookDialog.close();
+});
 
 bookDialog.addEventListener('click',event=>{
   if(event.target===bookDialog) bookDialog.close();
@@ -301,6 +304,15 @@ def index_page(books, site, S, lang):
     <button type="button" id="close-book-form"
             class="book-form-close" aria-label="Close">×</button>
     <section class="submission">
+        <div id="submission-overlay" class="submission-overlay" hidden>
+            <div class="submission-overlay-content">
+                <div class="submission-spinner"></div>
+                <h2 id="submission-overlay-title">Adding your books</h2>
+                <p id="submission-overlay-message">
+                    Your submission is being processed. Please wait...
+                </p>
+            </div>
+        </div>
         <h2>Add books</h2>
 
         <form id="book-form">
@@ -432,6 +444,24 @@ def index_page(books, site, S, lang):
 
     const entries = document.getElementById("book-entries");
     const addButton = document.getElementById("add-book");
+    const closeBookForm = document.getElementById("close-book-form");
+    const bookFormDialog = document.getElementById("book-form-dialog");
+    
+    const submissionOverlay = document.getElementById("submission-overlay");
+    const overlayTitle = document.getElementById("submission-overlay-title");
+    const overlayMessage = document.getElementById("submission-overlay-message");
+    
+    function showSubmissionOverlay(title, message) {
+        overlayTitle.textContent = title;
+        overlayMessage.textContent = message;
+        submissionOverlay.hidden = false;
+        closeBookForm.hidden = true;
+    }
+    
+    function hideSubmissionOverlay() {
+        submissionOverlay.hidden = true;
+        closeBookForm.hidden = false;
+    }
     
     
 const isbnInput = document.getElementById("barcode-isbn");
@@ -719,8 +749,18 @@ async function monitorProcessing(status, submissionMessage, submissionStartedAt)
 
             const data = await response.json();
 
-            status.textContent =
-                submissionMessage + "\\n\\n⏳ " + data.message;
+            const stageTitles = {
+                queued: "Waiting for processing",
+                preparing: "Preparing your books",
+                processing: "Processing your books",
+                publishing_final: "Publishing the library",
+                pending_ready: "Your books are ready!"
+            };
+            
+            showSubmissionOverlay(
+                stageTitles[data.stage] || "Processing your books",
+                data.message
+            );
 
             if (data.state === "pending_ready" && !monitorData.pendingReloaded) {
                 document.getElementById("book-form-dialog")?.close();
@@ -750,14 +790,21 @@ async function monitorProcessing(status, submissionMessage, submissionStartedAt)
 
             if (data.state === "failed") {
                 sessionStorage.removeItem(storageKey);
-                status.textContent += "\\n\\nWorkflow details: " + data.url;
+            
+                showSubmissionOverlay(
+                    "Processing failed",
+                    "Something went wrong while updating the library. Please check the workflow details."
+                );
+            
+                overlayMessage.textContent += " " + data.url;
                 return;
             }
-
+            
         } catch (error) {
             status.textContent =
                 submissionMessage +
                 "\\n\\n⚠ Could not retrieve status. Retrying...";
+            hideSubmissionOverlay();
         }
 
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -1031,7 +1078,12 @@ function setupEntry(entry) {
                 updateBookNumbers();
             }
             if (result.success && result.deploymentTriggered) {
-                monitorProcessing(status, messages.join("\\n"), submissionStartedAt);
+                showSubmissionOverlay(
+                    "Preparing your books",
+                    "Your submission was successful. Preparing the updated library..."
+                );
+            
+                monitorProcessing(status, messages.join("\n"), submissionStartedAt);
             }
             
             if (!isLocalTest && typeof turnstile !== "undefined") {

@@ -732,3 +732,66 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     line-height: 1;
     cursor: pointer;
 }
+
+
+/* Submission processing overlay */
+.book-form-dialog .submission {
+    position: relative;
+}
+
+.submission-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    place-items: center;
+    padding: 32px;
+    border-radius: inherit;
+    background: var(--bg);
+    text-align: center;
+}
+
+.submission-overlay[hidden] {
+    display: none !important;
+}
+
+.submission-overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    max-width: 420px;
+}
+
+.submission-spinner {
+    width: 64px;
+    height: 64px;
+    border: 6px solid var(--line);
+    border-top-color: var(--text);
+    border-radius: 50%;
+    animation: submission-spin 0.9s linear infinite;
+}
+
+.submission-overlay h2 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.submission-overlay p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+@keyframes submission-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .submission-spinner {
+        animation-duration: 2.5s;
+    }
+}
