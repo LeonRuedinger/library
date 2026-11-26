@@ -89,11 +89,23 @@ async function pollWorkflow(bookId, runId) {
         continue;
       }
 
+      const completedAction = pending[bookId].action;
+
       delete pending[bookId];
       savePendingOperations(pending);
 
       if (data.conclusion === "success") {
-        window.location.reload();
+        if (
+          completedAction === "delete" &&
+          window.location.pathname.split("/").includes(bookId)
+        ) {
+          const libraryUrl = new URL("../", window.location.href);
+          libraryUrl.searchParams.set("v", Date.now());
+          window.location.replace(libraryUrl.href);
+        } else {
+          window.location.reload();
+        }
+
         return;
       }
 
@@ -142,12 +154,13 @@ document.addEventListener("click", async (event) => {
   const action = button.dataset.adminAction;
   const bookId = button.dataset.bookId;
 
-  if (!["archive", "restore", "refresh"].includes(action)) return;
+  if (!["archive", "restore", "refresh", "delete"].includes(action)) return;
 
   const labels = {
     archive: "Archive this book?",
     restore: "Restore this book?",
-    refresh: "Refresh audiobook links for this book?"
+    refresh: "Refresh audiobook links for this book?",
+    delete: "PERMANENTLY delete this book? This cannot be undone."
   };
 
   if (!confirm(labels[action])) return;

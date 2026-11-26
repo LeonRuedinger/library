@@ -323,7 +323,7 @@ def book_page(b, site, S, lang, with_index, search=None, archived=False):
         f'data-admin-action="{"restore" if archived else "archive"}" '
         f'data-book-id="{b["id"]}">'
         f'{"Restore" if archived else "Archive"}</button>'
-        f'<button type="button" class="manage-delete">Delete</button>'
+f'<button type="button" class="manage-delete" data-admin-action="delete" data-book-id="{b["id"]}">Delete</button>'
         f'</div>'
     )
 

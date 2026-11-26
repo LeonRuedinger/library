@@ -1,12 +1,19 @@
 
 name: Rebuild and deploy website
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      delete_book_id:
+        description: "Book ID to permanently delete (leave empty for normal rebuild)"
+        required: false
+        type: string
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
+
 
 jobs:
   rebuild:
@@ -29,6 +36,26 @@ jobs:
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
+
+
+      - name: Delete book if requested
+        if: ${{ inputs.delete_book_id != '' }}
+        env:
+          BOOK_ID: ${{ inputs.delete_book_id }}
+        run: python delete_book.py "$BOOK_ID"
+
+      - name: Commit deletion
+        if: ${{ inputs.delete_book_id != '' }}
+        env:
+          BOOK_ID: ${{ inputs.delete_book_id }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Permanently delete book $BOOK_ID"
+            git push
+          fi
 
       - name: Generate website
         run: |
