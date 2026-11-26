@@ -104,6 +104,17 @@ function restorePendingOperations() {
   }
 }
 
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("#archive-link");
+
+  if (!link) return;
+
+  const url = new URL(link.href);
+  url.searchParams.set("v", Date.now());
+
+  link.href = url.href;
+});
+
 document.addEventListener("DOMContentLoaded", restorePendingOperations);
 
 document.addEventListener("click", async (event) => {
