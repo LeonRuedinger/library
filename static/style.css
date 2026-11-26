@@ -930,29 +930,30 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
         0 21px 5px #0005;
 }
 
-/* Incoming book */
+/* Incoming book — lying flat */
 .book-card-wrapper.is-processing.is-restoring .cover .processing-book {
-    animation: stack-book 3.2s ease-out infinite;
+    width: 31%;
+    height: 12%;
+    left: 34.5%;
+    top: 53%;
+    transform-origin: center center;
+    animation: stack-book 2.8s linear infinite;
 }
 
 @keyframes stack-book {
     0% {
-        transform: translate(-24px, -28px) rotate(-12deg);
+        transform: translateY(-45px);
         opacity: 0;
     }
     12% {
         opacity: 1;
     }
-    55% {
-        transform: translate(-8px, -10px) rotate(-5deg);
-    }
-    82% {
-        transform: translate(0, 0) rotate(0deg);
-    }
-    90% {
-        transform: translate(0, 2px) rotate(0deg);
+    75% {
+        transform: translateY(0);
+        opacity: 1;
     }
     100% {
-        transform: translate(0, 0) rotate(0deg);
+        transform: translateY(0);
+        opacity: 0;
     }
 }
