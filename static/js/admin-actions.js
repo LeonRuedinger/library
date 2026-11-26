@@ -40,14 +40,6 @@ function setBookProcessing(bookId, action) {
   });
 }
 
-
-  document.querySelectorAll(".book-card-wrapper").forEach((wrapper) => {
-    if (wrapper.querySelector(`[data-book-id="${bookId}"]`)) {
-      wrapper.style.opacity = "0.5";
-    }
-  });
-}
-
 async function checkWorkflow(runId) {
   const token = sessionStorage.getItem(ADMIN_TOKEN_KEY);
 
