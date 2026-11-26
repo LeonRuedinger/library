@@ -90,7 +90,7 @@ INDEX_SCRIPTS = [
     "isbn-lookup", "barcode-scanner", "processing-monitor", "submit",
     "admin-actions",
 ]
-
+BOOK_SCRIPTS = ["config", "admin-actions"]
 ADMIN_SCRIPTS = ["config", "admin"]
 
 ARCHIVE_SCRIPTS = ["search", "config", "admin-actions"]
@@ -107,9 +107,9 @@ def render(name, **context):
     return Template(text).safe_substitute(context)
 
 
-def script_tags(names, external=()):
+def script_tags(names, external=(), root=""):
     tags = [f'<script src="{url}"></script>' for url in external]
-    tags += [f'<script src="static/js/{name}.js"></script>' for name in names]
+    tags += [f'<script src="{root}static/js/{name}.js"></script>' for name in names]
     return "\n".join(tags)
 
 
@@ -350,11 +350,7 @@ f'<button type="button" class="manage-delete" data-admin-action="delete" data-bo
     return page(
         b["title"], body, site, lang,
         root="../",
-        scripts=(
-            '<script src="../static/js/config.js"></script>'
-            '<script src="../static/js/admin.js"></script>'
-            '<script src="../static/js/admin-actions.js"></script>'
-        )
+        scripts=(script_tags(BOOK_SCRIPTS, root="../"))
     )
 
 
