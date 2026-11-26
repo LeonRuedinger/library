@@ -872,7 +872,7 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     background: #527c91;
     box-shadow: 2px 3px 5px #0006;
     transform-origin: bottom center;
-    animation: place-book 2.4s ease-in-out infinite;
+    animation: place-book 3s cubic-bezier(.22,.75,.25,1) infinite;
 }
 
 .book-card-wrapper.is-processing .cover .processing-book::after {
@@ -886,17 +886,28 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 }
 
 @keyframes place-book {
-    0%, 10% {
-        transform: translateY(-20px) rotate(-12deg);
+    0% {
+        transform: translate(-28px, 32px) rotate(-28deg);
+        opacity: 0;
+    }
+    15% {
+        transform: translate(-20px, 24px) rotate(-24deg);
+        opacity: 1;
     }
     45% {
-        transform: translateY(0) rotate(5deg);
+        transform: translate(-5px, -2px) rotate(-8deg);
     }
-    60%, 85% {
-        transform: translateY(0) rotate(0deg);
+    60% {
+        transform: translate(0, -5px) rotate(4deg);
     }
-    100% {
-        transform: translateY(-20px) rotate(-12deg);
+    72% {
+        transform: translate(0, 0) rotate(-2deg);
+    }
+    82% {
+        transform: translate(0, 0) rotate(1deg);
+    }
+    90%, 100% {
+        transform: translate(0, 0) rotate(0deg);
     }
 }
 
