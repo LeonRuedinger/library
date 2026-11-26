@@ -14,11 +14,32 @@ function savePendingOperations(operations) {
   localStorage.setItem(PENDING_KEY, JSON.stringify(operations));
 }
 
+
 function setBookProcessing(bookId, action) {
   document.querySelectorAll(`[data-book-id="${bookId}"]`).forEach((button) => {
     button.disabled = true;
-    button.textContent = "Rebuilding…";
   });
+
+  document.querySelectorAll(".book-card-wrapper").forEach((wrapper) => {
+    if (!wrapper.querySelector(`[data-book-id="${bookId}"]`)) return;
+
+    wrapper.classList.add("is-processing");
+
+    const cover = wrapper.querySelector(".cover");
+    if (!cover) return;
+
+    cover.dataset.processingLabel =
+      action === "archive" ? "Archiving book…" : "Restoring book…";
+
+    if (!cover.querySelector(".processing-book")) {
+      const animatedBook = document.createElement("span");
+      animatedBook.className = "processing-book";
+      animatedBook.setAttribute("aria-hidden", "true");
+      cover.appendChild(animatedBook);
+    }
+  });
+}
+
 
   document.querySelectorAll(".book-card-wrapper").forEach((wrapper) => {
     if (wrapper.querySelector(`[data-book-id="${bookId}"]`)) {

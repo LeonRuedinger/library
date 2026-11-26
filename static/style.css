@@ -814,3 +814,95 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     font-size: .78rem;
     cursor: pointer;
 }
+
+
+/* Persistent archive/restore animation */
+.book-card-wrapper.is-processing .admin-book-actions {
+    display: none;
+}
+
+.book-card-wrapper.is-processing .cardlink {
+    pointer-events: none;
+}
+
+.book-card-wrapper.is-processing .cover {
+    position: relative;
+    opacity: 0.45;
+}
+
+/* Status label above the cover */
+.book-card-wrapper.is-processing .cover::after {
+    content: attr(data-processing-label);
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    right: 5px;
+    z-index: 3;
+    text-align: center;
+    font-size: .78rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 3px #000;
+}
+
+/* Animated shelf */
+.book-card-wrapper.is-processing .cover::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 12%;
+    right: 12%;
+    top: 58%;
+    height: 5px;
+    border-radius: 2px;
+    background: #c49a6c;
+    box-shadow: 0 3px 5px #0005;
+}
+
+/* Little book being placed on the shelf */
+.book-card-wrapper.is-processing .cover .processing-book {
+    position: absolute;
+    z-index: 4;
+    width: 17%;
+    height: 31%;
+    left: 42%;
+    top: 24%;
+    border-radius: 3px 5px 5px 3px;
+    border: 2px solid #f0d9a6;
+    background: #527c91;
+    box-shadow: 2px 3px 5px #0006;
+    transform-origin: bottom center;
+    animation: place-book 2.4s ease-in-out infinite;
+}
+
+.book-card-wrapper.is-processing .cover .processing-book::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: #ffffff99;
+}
+
+@keyframes place-book {
+    0%, 10% {
+        transform: translateY(-20px) rotate(-12deg);
+    }
+    45% {
+        transform: translateY(0) rotate(5deg);
+    }
+    60%, 85% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-20px) rotate(-12deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .book-card-wrapper.is-processing .processing-book {
+        animation: none;
+        transform: none;
+    }
+}
