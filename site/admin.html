@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b2a5b">
+<meta name="robots" content="noindex,nofollow">
+<title>Administration · Mini Library</title>
+<link rel="stylesheet" href="static/style.css">
+<script src="static/js/auth.js"></script>
+</head>
+<body>
+<header class="top">
+  <span>Mini Library</span>
+</header>
+<main class="wrap">
+  <h1>Library administration</h1>
+
+  <section id="admin-login">
+    <h2>Admin login</h2>
+    <form id="admin-login-form">
+      <label for="admin-password">Password</label>
+      <input
+        id="admin-password"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+      <button type="submit">Log in</button>
+      <p id="admin-login-error" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="admin-panel" hidden>
+    <p>You are logged in.</p>
+    <button id="admin-logout" type="button">Log out</button>
+    <p id="admin-status" role="status"></p>
+  </section>
+</main>
+
+<script src="static/js/config.js"></script>
+<script src="static/js/admin.js"></script>
+</body>
+</html>

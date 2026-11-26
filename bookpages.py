@@ -88,8 +88,12 @@ ZXING_SCRIPT = "https://unpkg.com/@zxing/browser@0.2.1"
 INDEX_SCRIPTS = [
     "config", "search", "book-dialog", "turnstile", "overlay", "book-entries",
     "isbn-lookup", "barcode-scanner", "processing-monitor", "submit",
+    "admin-actions",
 ]
-ARCHIVE_SCRIPTS = ["search"]
+
+ADMIN_SCRIPTS = ["config", "admin"]
+
+ARCHIVE_SCRIPTS = ["search", "config", "admin-actions"]
 
 
 # ------------------------------------------------------------------ helpers
@@ -266,18 +270,33 @@ def listen_section(b, S, search):
     return heading + empty + extra_html
 
 
-def book_card(b, S):
+
+def book_card(b, S, archived=False):
     if b.get("processing"):
         tag, href = "div", ""
         badge = '<span class="badge processing-badge">Processing…</span>'
     else:
         tag, href = "a", f' href="{b["id"]}/"'
         badge = f'<span class="badge">{esc(S["audio"])}</span>' if b["links"] else ""
+
     search_text = esc((b["title"] + " " + b["author"]).lower())
-    return (f'<{tag} class="cardlink"{href} data-s="{search_text}">'
-            f'{cover_html(b, b["id"] + "/")}'
-            f'<div class="t">{esc(b["title"])}</div>'
-            f'<div class="a">{esc(b["author"])}</div>{badge}</{tag}>')
+
+    return (
+        f'<div class="book-card-wrapper">'
+        f'<{tag} class="cardlink"{href} data-s="{search_text}">'
+        f'{cover_html(b, b["id"] + "/")}'
+        f'<div class="t">{esc(b["title"])}</div>'
+        f'<div class="a">{esc(b["author"])}</div>{badge}'
+        f'</{tag}>'
+        f'<div class="admin-book-actions" hidden>'
+        f'<button type="button" data-admin-action="{"restore" if archived else "archive"}" data-book-id="{b["id"]}">'
+        f'{"Restore" if archived else "Archive"}'
+        f'</button>'
+        f'<button type="button" data-admin-action="refresh" data-book-id="{b["id"]}">Refresh links</button>'
+        f'</div>'
+        f'</div>'
+    )
+
 
 
 # ------------------------------------------------------------------ pages
@@ -328,6 +347,15 @@ def index_page(books, site, S, lang):
     return page(S["all"], body, site, lang,
                 scripts=script_tags(INDEX_SCRIPTS, external=[ZXING_SCRIPT]))
 
+def admin_page(site, S, lang):
+    body = render("admin.html", site=esc(site))
+    return page(
+        "Administration",
+        body,
+        site,
+        lang,
+        scripts=script_tags(ADMIN_SCRIPTS),
+    )
 
 def archive_page(books, site, S, lang):
     body = render(
@@ -336,7 +364,7 @@ def archive_page(books, site, S, lang):
         search=esc(S["search"]),
         count_template=esc(S["count"]),
         count=esc(S["count"].format(n=len(books))),
-        cards="".join(book_card(b, S) for b in books),
+        cards="".join(book_card(b, S, archived=True) for b in books),
     )
     return page("Archived books", body, site, lang, scripts=script_tags(ARCHIVE_SCRIPTS))
 
@@ -530,6 +558,8 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
     root = (index_page(active, site, S, lang) if with_index
             else message_page(site, S["landing"], site, S, lang))
     write_text(os.path.join(out, "index.html"), root)
+    write_text(os.path.join(out, "admin.html"),
+               admin_page(site, S, lang))
     write_text(os.path.join(out, "archived.html"), archive_page(archived, site, S, lang))
     write_text(os.path.join(out, "404.html"),
                message_page(S["nf_t"], S["nf_p"], site, S, lang))

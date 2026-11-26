@@ -392,6 +392,8 @@ def main():
     ap.add_argument("--out", help="result CSV (default: <csv>_linked.csv)")
     ap.add_argument("--services", default="audible,storytel,bookbeat")
     ap.add_argument("--only", help="only books whose title contains this text")
+    ap.add_argument("--exact-title", help="process only this exact normalized title")
+    ap.add_argument("--exact-author", help="process only this exact normalized author")
     ap.add_argument("--limit", type=int, default=0, help="stop after this many books that needed work")
     ap.add_argument("--default-lang", default="de", help="language to expect when the CSV has none (default de)")
     ap.add_argument("--candidates", type=int, default=3, help="how many search results to open per service")
@@ -515,6 +517,10 @@ def main():
         for r in rows:
             title, author = (r.get("title") or "").strip(), (r.get("author") or "").strip()
             if not title or (a.only and a.only.lower() not in title.lower()):
+                continue
+            if a.exact_title and norm(title) != norm(a.exact_title):
+                continue
+            if a.exact_author and norm(author) != norm(a.exact_author):
                 continue
             exp_lang = (r.get("lang") or "").strip().lower() or infer_lang(title) or a.default_lang
             todo = []

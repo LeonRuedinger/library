@@ -1,0 +1,27 @@
+<header class="top">
+  <span>$site</span>
+</header>
+<main class="wrap">
+  <h1>Library administration</h1>
+
+  <section id="admin-login">
+    <h2>Admin login</h2>
+    <form id="admin-login-form">
+      <label for="admin-password">Password</label>
+      <input
+        id="admin-password"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+      <button type="submit">Log in</button>
+      <p id="admin-login-error" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="admin-panel" hidden>
+    <p>You are logged in.</p>
+    <button id="admin-logout" type="button">Log out</button>
+    <p id="admin-status" role="status"></p>
+  </section>
+</main>
