@@ -43,7 +43,7 @@ jobs:
           path: ./site
 
       - name: Wait for artifact indexing
-        run: sleep 10
+        run: sleep 5
 
       - name: Deploy website
         id: deployment

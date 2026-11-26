@@ -878,10 +878,10 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 .book-card-wrapper.is-processing .cover .processing-book::after {
     content: "";
     position: absolute;
-    left: 3px;
-    top: 4px;
-    bottom: 4px;
-    width: 2px;
+    left: 4px;
+    right: 4px;
+    top: 3px;
+    height: 2px;
     background: #ffffff99;
 }
 
@@ -936,6 +936,7 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     height: 12%;
     left: 34.5%;
     top: 53%;
+    border-radius: 4px 4px 2px 2px;
     transform-origin: center center;
     animation: stack-book 2.8s linear infinite;
 }
@@ -945,10 +946,14 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
         transform: translateY(-45px);
         opacity: 0;
     }
-    12% {
+    10% {
         opacity: 1;
     }
     75% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    90% {
         transform: translateY(0);
         opacity: 1;
     }
