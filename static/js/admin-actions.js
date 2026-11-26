@@ -105,7 +105,7 @@ function restorePendingOperations() {
 }
 
 document.addEventListener("click", (event) => {
-  const link = event.target.closest("#archive-link");
+  const link = event.target.closest("#archive-link, #library-link");
 
   if (!link) return;
 
