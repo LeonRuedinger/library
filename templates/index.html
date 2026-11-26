@@ -1,10 +1,13 @@
 <header class="top">
   <span>$site</span>
-  <a href="archived.html" id="archive-link">Archived books</a></header>
+</header>
 <main class="wrap">
 <div class="card">
 <input id="q" class="search" type="search" placeholder="$search" aria-label="$search">
-<p class="count" id="n" data-t="$count_template">$count</p>
+<div class="count-row">
+    <p class="count" id="n" data-t="$count_template">$count</p>
+    <a href="archived.html" id="archive-link" class="archive-link">Archived books</a>
+</div>
 
 $book_form
 

@@ -277,7 +277,7 @@ def book_card(b, S, archived=False):
         badge = '<span class="badge processing-badge">Processing…</span>'
     else:
         tag, href = "a", f' href="{b["id"]}/"'
-        badge = f'<span class="badge">{esc(S["audio"])}</span>' if b["links"] else ""
+        badge = ""
 
     search_text = esc((b["title"] + " " + b["author"]).lower())
 
@@ -292,7 +292,6 @@ def book_card(b, S, archived=False):
         f'<button type="button" data-admin-action="{"restore" if archived else "archive"}" data-book-id="{b["id"]}">'
         f'{"Restore" if archived else "Archive"}'
         f'</button>'
-        f'<button type="button" data-admin-action="refresh" data-book-id="{b["id"]}">Refresh links</button>'
         f'</div>'
         f'</div>'
     )
@@ -305,7 +304,7 @@ def page(title, body, site, lang, root="", scripts=""):
                   root=root, body=body, scripts=scripts)
 
 
-def book_page(b, site, S, lang, with_index, search=None):
+def book_page(b, site, S, lang, with_index, search=None, archived=False):
     description = "".join(f'<p class="desc">{esc(p.strip())}</p>'
                           for p in re.split(r"\r?\n+", b["description"]) if p.strip())
     chip = ""
@@ -316,6 +315,17 @@ def book_page(b, site, S, lang, with_index, search=None):
     if b["checked"] and (b["links"] or b["absent"]):
         checked = (f'<p class="foot">'
                    f'{esc(S["checked"].format(d=fmt_date(b["checked"], lang)))}</p>')
+
+    manage = (
+        f'<div class="admin-book-actions book-manage-row" hidden>'
+        f'<button type="button" class="manage-refresh" data-admin-action="refresh" data-book-id="{b["id"]}">Refresh links</button>'
+        f'<button type="button" class="manage-{"restore" if archived else "archive"}" '
+        f'data-admin-action="{"restore" if archived else "archive"}" '
+        f'data-book-id="{b["id"]}">'
+        f'{"Restore" if archived else "Archive"}</button>'
+        f'<button type="button" class="manage-delete">Delete</button>'
+        f'</div>'
+    )
 
     body = render(
         "book.html",
@@ -328,7 +338,14 @@ def book_page(b, site, S, lang, with_index, search=None):
         description=description,
         listen=listen_section(b, S, search),
         checked=checked,
-        back=f'<a class="back" href="../">&larr; {esc(S["all"])}</a>' if with_index else "",
+        back=(
+            f'<p class="back-link-row book-back-row">'
+            f'<a class="back-library-link" href="../">← Back to library</a>'
+            f'</p>'
+            if with_index else ""
+
+        ),
+        manage=manage,
     )
     return page(b["title"], body, site, lang, root="../")
 
@@ -553,7 +570,7 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
     for b in books:
         os.makedirs(os.path.join(out, b["id"]), exist_ok=True)
         write_text(os.path.join(out, b["id"], "index.html"),
-                   book_page(b, site, S, lang, with_index, search))
+                   book_page(b, site, S, lang, with_index, search, archived=b["id"] in archived_ids))
 
     root = (index_page(active, site, S, lang) if with_index
             else message_page(site, S["landing"], site, S, lang))

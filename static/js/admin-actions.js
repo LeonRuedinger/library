@@ -181,10 +181,13 @@ document.addEventListener("click", async (event) => {
     }
 
     if (action === "refresh") {
-      button.textContent = "Refresh started";
-      button.closest(".book-card-wrapper").style.opacity = "0.5";
-      alert(data.message || "Refresh started successfully.");
-      return;
+        button.textContent = "Refresh started";
+
+        const card = button.closest(".book-card-wrapper");
+        if (card) card.style.opacity = "0.5";
+
+        alert(data.message || "Refresh started successfully.");
+        return;
     }
 
     if (!data.runId) {
@@ -198,12 +201,8 @@ document.addEventListener("click", async (event) => {
       action
     };
 
-    savePendingOperations(pending);
-    setBookProcessing(bookId, action);
-
-    pollWorkflow(bookId, data.runId);
-
-    alert("Website rebuild started. This book will move automatically once deployment finishes.");
+  savePendingOperations(pending);
+  window.location.reload();
 
   } catch (error) {
     alert(error.message);
