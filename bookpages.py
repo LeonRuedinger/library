@@ -254,7 +254,7 @@ def book_page(b, site, S, lang, with_index, search=None):
     back = f'<a class="back" href="../">&larr; {esc(S["all"])}</a>' if with_index else ""
     return (head(b["title"], site, S, lang, "../") + f"""
 <body>
-<header class="top"><span>{esc(site)}</span></header>
+
 <main class="wrap">
 <article class="card">
 <div class="hero">
@@ -1233,7 +1233,10 @@ function setupEntry(entry) {
 
     return (head(S["all"], site, S, lang, "") + f"""
 <body>
-<header class="top"><span>{esc(site)}</span></header>
+<header class="top">
+    <span>{esc(site)}</span>
+    <a href="archived.html">Archived books</a>
+</header>
 <main class="wrap">
 <div class="card">
 <input id="q" class="search" type="search"
@@ -1267,7 +1270,55 @@ if (
 </html>
 """)
 
+def archive_page(books, site, S, lang):
+    cards = []
 
+    for b in books:
+        s = esc((b["title"] + " " + b["author"]).lower())
+
+        cards.append(
+            f'<a class="cardlink" href="{b["id"]}/" data-s="{s}">'
+            f'{cover_html(b, b["id"] + "/")}'
+            f'<div class="t">{esc(b["title"])}</div>'
+            f'<div class="a">{esc(b["author"])}</div>'
+            f'</a>'
+        )
+
+    count = S["count"].format(n=len(books))
+
+    return head("Archived books", site, S, lang, "") + f"""
+<body>
+<header class="top"><span>{esc(site)}</span></header>
+<main class="wrap">
+<div class="card">
+<p><a href="./">← Back to library</a></p>
+<h2>Archived books</h2>
+<input id="q" class="search" type="search"
+       placeholder="{esc(S["search"])}"
+       aria-label="{esc(S["search"])}">
+<p class="count" id="n" data-t="{esc(S["count"])}">{esc(count)}</p>
+<div class="grid">{"".join(cards)}</div>
+</div>
+</main>
+<script>
+const q = document.getElementById("q");
+const items = [...document.querySelectorAll("[data-s]")];
+const n = document.getElementById("n");
+
+q.addEventListener("input", () => {{
+    const v = q.value.trim().toLowerCase();
+    let c = 0;
+    items.forEach(e => {{
+        const m = !v || e.dataset.s.includes(v);
+        e.hidden = !m;
+        if (m) c++;
+    }});
+    n.textContent = n.dataset.t.replace("{{n}}", c);
+}});
+</script>
+</body>
+</html>
+"""
 
 def simple_page(title, text, site, S, lang):
     return (head(title, site, S, lang, "") + f"""
@@ -1280,11 +1331,12 @@ def simple_page(title, text, site, S, lang):
 
 
 # ------------------------------------------------------------------ build
-def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_covers, ids_file, tags_out, cname, search=None, master_csv=None):
+def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_covers, ids_file, tags_out, cname, search=None, master_csv=None, archive_file=None):
     S = STRINGS[lang]
     csv_dir = os.path.dirname(os.path.abspath(csv_path))
     covers_dir = covers_dir or csv_dir
     ids_file = ids_file or os.path.splitext(os.path.abspath(csv_path))[0] + ".ids.json"
+    archive_file = archive_file or os.path.splitext(os.path.abspath(csv_path))[0] + ".archive.json"
     tags_out = tags_out or os.path.join(csv_dir, "../tag_urls.csv")
     store, warnings, books, seen = IdStore(ids_file), [], [], {}
 
@@ -1398,6 +1450,25 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
                 has_cover=False,
                 processing=True
             ))
+    # Load archived book IDs
+    if os.path.exists(archive_file):
+        with open(archive_file, "r", encoding="utf-8") as f:
+            archive_data = json.load(f)
+        archived_ids = set(archive_data.get("archived", []))
+    else:
+        archived_ids = set()
+        with open(archive_file, "w", encoding="utf-8") as f:
+            json.dump({"archived": []}, f, indent=1)
+
+    # Keep archived books out of the main library
+    active_index_books = [
+        b for b in index_books
+        if b["id"] not in archived_ids
+    ]
+    archived_books = [
+        b for b in index_books
+        if b["id"] in archived_ids
+    ]
 
     css_source = os.path.join(os.path.dirname(os.path.abspath(__file__)), "style.css")
     with open(css_source, "r", encoding="utf-8") as src:
@@ -1409,9 +1480,13 @@ def build(csv_path, out, base_url, site, lang, with_index, covers_dir, use_cover
         os.makedirs(os.path.join(out, b["id"]), exist_ok=True)
         with open(os.path.join(out, b["id"], "index.html"), "w", encoding="utf-8") as f:
             f.write(book_page(b, site, S, lang, with_index, search))
-    root = index_page(index_books, site, S, lang) if with_index else simple_page(site, S["landing"], site, S, lang)
+    root = index_page(active_index_books, site, S, lang) if with_index else simple_page(site, S["landing"], site, S,
+                                                                                        lang)
     with open(os.path.join(out, "index.html"), "w", encoding="utf-8") as f:
         f.write(root)
+    archived = archive_page(archived_books, site, S, lang)
+    with open(os.path.join(out, "archived.html"), "w", encoding="utf-8") as f:
+        f.write(archived)
     with open(os.path.join(out, "404.html"), "w", encoding="utf-8") as f:
         f.write(simple_page(S["nf_t"], S["nf_p"], site, S, lang))
     with open(os.path.join(out, ".nojekyll"), "w") as f:
@@ -1457,6 +1532,7 @@ def main():
     ap.add_argument("--covers-dir", help="folder the 'front' paths are relative to (default: CSV folder)")
     ap.add_argument("--no-covers", action="store_true", help="never publish cover images (use title tiles)")
     ap.add_argument("--ids-file", help="where page ids are remembered (default: <csv>.ids.json)")
+    ap.add_argument("--archive-file", help="where archived book IDs are stored (default: <csv>.archive.json)")
     ap.add_argument("--tags-out", help="where to write the tag address list (default: tag_urls.csv next to the CSV)")
     ap.add_argument("--search-link", action="append", default=[], metavar="NAME=URL",
                     help='fallback search button, e.g. audible="https://www.audible.de/search?keywords={q}" (repeatable)')
@@ -1471,7 +1547,7 @@ def main():
         search[name.strip().lower()] = url.strip().strip('"')
     build(a.csv, a.out, a.base_url, a.site_title or STRINGS[a.lang]["mini"], a.lang, a.with_index,
           a.covers_dir, not a.no_covers, a.ids_file, a.tags_out, a.cname, search,
-          a.master_csv)
+          a.master_csv, a.archive_file)
 
 
 if __name__ == "__main__":
