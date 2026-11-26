@@ -1,0 +1,53 @@
+"""Page texts and month names for the supported languages."""
+
+STRINGS = {
+    "en": dict(
+        listen="Listen",
+        listen_on="Listen on {s}",
+        none="No audiobook link has been added for this book yet.",
+        st_included="Included in the subscription",
+        st_credit="Monthly pick or purchase",
+        st_buy="Purchase only",
+        none_on="Not available on {s}",
+        search_on="Search on {s}",
+        st_unchecked="Not checked yet",
+        checked="Links and plan info checked {d}",
+        finished="Finished {d}",
+        mini="Mini Library",
+        landing="Hold your phone to a book to open its page.",
+        nf_t="Book not found",
+        nf_p="This page doesn't exist (anymore).",
+        search="Search books",
+        all="All books",
+        audio="Audio",
+        count="{n} books",
+    ),
+    "de": dict(
+        listen="Hörbuch",
+        listen_on="Anhören bei {s}",
+        none="Für dieses Buch ist noch kein Hörbuch-Link hinterlegt.",
+        st_included="Im Abo enthalten",
+        st_credit="Als Monatstitel wählbar oder kaufbar",
+        st_buy="Nur als Kauf",
+        none_on="Bei {s} nicht verfügbar",
+        search_on="Bei {s} suchen",
+        st_unchecked="Noch nicht geprüft",
+        checked="Links und Abo-Infos geprüft am {d}",
+        finished="Gelesen am {d}",
+        mini="Mini-Bibliothek",
+        landing="Halte dein Handy an ein Buch, um die Seite zu öffnen.",
+        nf_t="Buch nicht gefunden",
+        nf_p="Diese Seite gibt es nicht (mehr).",
+        search="Bücher durchsuchen",
+        all="Alle Bücher",
+        audio="Hörbuch",
+        count="{n} Bücher",
+    ),
+}
+
+MONTHS = {
+    "en": ["January", "February", "March", "April", "May", "June", "July",
+           "August", "September", "October", "November", "December"],
+    "de": ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+           "August", "September", "Oktober", "November", "Dezember"],
+}

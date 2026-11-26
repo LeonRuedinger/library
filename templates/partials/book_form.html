@@ -1,0 +1,89 @@
+<dialog id="book-form-dialog" class="book-form-dialog">
+  <button type="button" id="close-book-form" class="book-form-close" aria-label="Close">×</button>
+
+  <section class="submission">
+    <div id="submission-overlay" class="submission-overlay" hidden>
+      <div class="submission-overlay-content">
+        <div class="submission-spinner"></div>
+        <h2 id="submission-overlay-title">Adding your books</h2>
+        <p id="submission-overlay-message">Your submission is being processed. Please wait...</p>
+      </div>
+    </div>
+
+    <h2>Add books</h2>
+
+    <form id="book-form">
+
+      <div class="barcode-scanner">
+        <p><strong>Add a book by ISBN</strong><br>
+           Scan the barcode with your camera or enter the ISBN manually.</p>
+
+        <div class="barcode-actions">
+          <button type="button" id="start-barcode-scan" class="primary">Scan barcode</button>
+          <button type="button" id="stop-barcode-scan" hidden>Stop camera</button>
+        </div>
+
+        <div class="barcode-video-container" hidden>
+          <video id="barcode-video" playsinline></video>
+          <div class="barcode-scan-frame"><span></span></div>
+        </div>
+
+        <div class="barcode-isbn-input">
+          <input type="text" id="barcode-isbn" inputmode="numeric"
+                 placeholder="Enter ISBN-13" maxlength="17" aria-label="ISBN-13">
+          <button type="button" id="lookup-isbn">Look up</button>
+        </div>
+
+        <div id="barcode-message" role="status" aria-live="polite"></div>
+        <div id="barcode-preview" hidden></div>
+      </div>
+
+      <div id="barcode-library"></div>
+
+      <div id="book-entries">
+        <div class="book-entry">
+
+          <div class="book-entry-header">
+            <button type="button" class="entry-toggle" aria-expanded="true">
+              <span class="entry-number">Book 1</span>
+              <span class="entry-summary">New book</span>
+              <img class="entry-cover" alt="" style="display:none">
+              <span class="entry-chevron">⌄</span>
+            </button>
+          </div>
+
+          <div class="book-entry-fields">
+            <label>Title *</label>
+            <input name="title" required maxlength="250">
+
+            <label>Author *</label>
+            <input name="author" required maxlength="200">
+
+            <label>Publisher</label>
+            <input name="publisher" maxlength="200">
+
+            <label>Language *</label>
+            <select name="lang" required>
+              <option value="de">Deutsch</option>
+              <option value="en">English</option>
+            </select>
+
+            <label>Book cover (optional)</label>
+            <input name="cover" type="file" accept="image/*" capture="environment">
+
+            <div class="cover-preview"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <button type="button" id="add-book">+ Add another book</button>
+
+      <div id="turnstile-widget"></div>
+
+      <button type="submit" id="submit-book">Submit all books</button>
+
+      <p id="submission-status" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</dialog>
