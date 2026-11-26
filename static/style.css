@@ -872,7 +872,7 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     background: #527c91;
     box-shadow: 2px 3px 5px #0006;
     transform-origin: bottom center;
-    animation: place-book 3s cubic-bezier(.22,.75,.25,1) infinite;
+    animation: place-book 3s cubic-bezier(.4, 0, .2, 1) infinite;
 }
 
 .book-card-wrapper.is-processing .cover .processing-book::after {
@@ -890,23 +890,19 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
         transform: translate(-28px, 32px) rotate(-28deg);
         opacity: 0;
     }
-    15% {
-        transform: translate(-20px, 24px) rotate(-24deg);
+    12% {
         opacity: 1;
     }
-    45% {
-        transform: translate(-5px, -2px) rotate(-8deg);
+    55% {
+        transform: translate(-8px, 5px) rotate(-12deg);
     }
-    60% {
-        transform: translate(0, -5px) rotate(4deg);
+    78% {
+        transform: translate(0, -1px) rotate(2deg);
     }
-    72% {
-        transform: translate(0, 0) rotate(-2deg);
+    88% {
+        transform: translate(0, 1px) rotate(-1deg);
     }
-    82% {
-        transform: translate(0, 0) rotate(1deg);
-    }
-    90%, 100% {
+    94%, 100% {
         transform: translate(0, 0) rotate(0deg);
     }
 }
@@ -915,5 +911,49 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     .book-card-wrapper.is-processing .processing-book {
         animation: none;
         transform: none;
+    }
+}
+
+/* Stack of books for restore animation */
+.book-card-wrapper.is-restoring .cover::before {
+    left: 25%;
+    right: 25%;
+    top: 65%;
+    height: 7px;
+    background: #9b7653;
+    box-shadow:
+        0 7px 0 #c49a6c,
+        0 14px 0 #76563e,
+        0 17px 4px #0005;
+}
+
+/* Incoming book */
+.book-card-wrapper.is-restoring .processing-book {
+    animation: stack-book 3s cubic-bezier(.22,.75,.25,1) infinite;
+}
+
+@keyframes stack-book {
+    0% {
+        transform: translate(-25px, 30px) rotate(-32deg);
+        opacity: 0;
+    }
+    15% {
+        transform: translate(-18px, 22px) rotate(-25deg);
+        opacity: 1;
+    }
+    48% {
+        transform: translate(-3px, 2px) rotate(-10deg);
+    }
+    65% {
+        transform: translate(0, -3px) rotate(3deg);
+    }
+    73% {
+        transform: translate(0, 1px) rotate(-2deg);
+    }
+    82% {
+        transform: translate(0, -1px) rotate(1deg);
+    }
+    90%, 100% {
+        transform: translate(0, 0) rotate(0deg);
     }
 }

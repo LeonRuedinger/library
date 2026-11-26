@@ -25,6 +25,10 @@ function setBookProcessing(bookId, action) {
 
     wrapper.classList.add("is-processing");
 
+    if (action === "restore") {
+      wrapper.classList.add("is-restoring");
+    }
+
     const cover = wrapper.querySelector(".cover");
     if (!cover) return;
 
