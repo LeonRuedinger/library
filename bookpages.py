@@ -347,7 +347,15 @@ f'<button type="button" class="manage-delete" data-admin-action="delete" data-bo
         ),
         manage=manage,
     )
-    return page(b["title"], body, site, lang, root="../")
+    return page(
+        b["title"], body, site, lang,
+        root="../",
+        scripts=(
+            '<script src="../static/js/config.js"></script>'
+            '<script src="../static/js/admin.js"></script>'
+            '<script src="../static/js/admin-actions.js"></script>'
+        )
+    )
 
 
 def index_page(books, site, S, lang):
