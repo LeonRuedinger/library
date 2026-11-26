@@ -925,38 +925,34 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     height: 7px;
     background: #9b7653;
     box-shadow:
-        0 7px 0 #c49a6c,
-        0 14px 0 #76563e,
-        0 17px 4px #0005;
+        0 9px 0 #c49a6c,
+        0 18px 0 #76563e,
+        0 21px 5px #0005;
 }
 
 /* Incoming book */
 .book-card-wrapper.is-processing.is-restoring .cover .processing-book {
-    animation: stack-book 3s cubic-bezier(.22,.75,.25,1) infinite;
+    animation: stack-book 3.2s ease-out infinite;
 }
 
 @keyframes stack-book {
     0% {
-        transform: translate(-25px, 30px) rotate(-32deg);
+        transform: translate(-24px, -28px) rotate(-12deg);
         opacity: 0;
     }
-    15% {
-        transform: translate(-18px, 22px) rotate(-25deg);
+    12% {
         opacity: 1;
     }
-    48% {
-        transform: translate(-3px, 2px) rotate(-10deg);
-    }
-    65% {
-        transform: translate(0, -3px) rotate(3deg);
-    }
-    73% {
-        transform: translate(0, 1px) rotate(-2deg);
+    55% {
+        transform: translate(-8px, -10px) rotate(-5deg);
     }
     82% {
-        transform: translate(0, -1px) rotate(1deg);
+        transform: translate(0, 0) rotate(0deg);
     }
-    90%, 100% {
+    90% {
+        transform: translate(0, 2px) rotate(0deg);
+    }
+    100% {
         transform: translate(0, 0) rotate(0deg);
     }
 }
