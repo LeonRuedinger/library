@@ -113,6 +113,13 @@
 </dialog>
 
 
+<div class="audiobook-check-row">
+    <button type="button" id="open-audiobook-check">
+        <span aria-hidden="true">🎧</span>
+        Check audiobook availability
+    </button>
+</div>
+
 <div class="grid"><button type="button" class="cardlink add-book-card" id="open-book-form">
 <div class="add-book-icon">+</div>
 <div class="t">Add book(s)</div>
@@ -121,6 +128,7 @@
 </div>
 </main>
 
+<div id="operation-notifications" role="status" aria-live="polite"></div>
 <script src="https://unpkg.com/@zxing/browser@0.2.1"></script>
 <script src="static/js/config.js"></script>
 <script src="static/js/search.js"></script>

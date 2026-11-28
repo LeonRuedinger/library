@@ -3,7 +3,10 @@ const bookDialog = document.getElementById("book-form-dialog");
 const openBookForm = document.getElementById("open-book-form");
 const closeBookForm = document.getElementById("close-book-form");
 
-openBookForm.addEventListener("click", () => bookDialog.showModal());
+openBookForm.addEventListener("click", () => {
+  bookDialog.showModal();
+  startBarcodeScan();
+});
 
 closeBookForm.addEventListener("click", () => {
   if (!submissionOverlay.hidden) return;  // busy: don't close
@@ -13,4 +16,8 @@ closeBookForm.addEventListener("click", () => {
 // Click on the backdrop closes the dialog.
 bookDialog.addEventListener("click", event => {
   if (event.target === bookDialog) bookDialog.close();
+});
+
+bookDialog.addEventListener("close", () => {
+  stopBarcodeScan();
 });

@@ -23,7 +23,9 @@ function stopBarcodeScan() {
   stopBarcodeScanButton.hidden = true;
 }
 
-startBarcodeScanButton.addEventListener("click", async () => {
+async function startBarcodeScan() {
+  if (barcodeScanActive) return;
+
   if (!window.isSecureContext) {
     barcodeMessage.textContent = "Camera access requires HTTPS or localhost.";
     return;
@@ -88,7 +90,9 @@ startBarcodeScanButton.addEventListener("click", async () => {
       ? "Camera access was denied. Please allow camera access in your browser."
       : "Could not start the camera: " + error.message;
   }
-});
+}
+
+startBarcodeScanButton.addEventListener("click", startBarcodeScan);
 
 stopBarcodeScanButton.addEventListener("click", () => {
   stopBarcodeScan();

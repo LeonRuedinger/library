@@ -526,6 +526,7 @@ def write_static(out):
 
     shutil.copyfile(css, os.path.join(static_out, "style.css"))
     shutil.copytree(STATIC_DIR / "js", os.path.join(static_out, "js"), dirs_exist_ok=True)
+    shutil.copytree(STATIC_DIR / "images", os.path.join(static_out, "images"), dirs_exist_ok=True)
 
 
 def write_tag_urls(path, books, base):

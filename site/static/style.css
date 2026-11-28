@@ -344,8 +344,29 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 }
 
 .barcode-book-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.barcode-book-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+.audiobook-availability {
     flex: 1;
     min-width: 0;
+}
+
+.barcode-book-add {
+    flex-shrink: 0;
+    margin-top: 0;
 }
 
 .barcode-book-title {
@@ -370,6 +391,13 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 
 .barcode-book-add {
     margin-top: 6px;
+}
+
+.barcode-book-availability-title {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text);
+    font-size: .8rem;
 }
 
 @media (max-width: 420px) {
@@ -861,6 +889,16 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     background: var(--navy);
 }
 
+.admin-book-actions button:disabled {
+    background: #64748b;
+    color: #e2e8f0;
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.admin-book-actions button:disabled:hover {
+    background: #64748b;
+}
 
 /* Persistent archive/restore animation */
 .book-card-wrapper.is-processing .admin-book-actions {
@@ -918,7 +956,7 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     background: #527c91;
     box-shadow: 2px 3px 5px #0006;
     transform-origin: bottom center;
-    animation: place-book 3.4s linear infinite;
+    animation: place-book 0.4s linear infinite;
 }
 
 .book-card-wrapper.is-processing .cover .processing-book::after {
@@ -1131,4 +1169,316 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 
 .book-manage-row .manage-restore {
     background: #d97706;
+}
+
+/* Deletion animation */
+.book-card-wrapper.is-processing.is-delete .cover .processing-book {
+    animation: delete-book 2s linear infinite;
+}
+
+@keyframes delete-book {
+    0% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    70% {
+        opacity: 0.7;
+        transform: scale(0.7) rotate(8deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.1) rotate(20deg);
+    }
+}
+
+/* Refresh animation */
+.book-card-wrapper.is-processing.is-refresh .cover .processing-book {
+    animation: refresh-book 2s linear infinite;
+}
+
+@keyframes refresh-book {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-8deg);
+    }
+    75% {
+        transform: rotate(8deg);
+    }
+}
+
+/* Persistent operation notifications */
+#operation-notifications {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: min(340px, calc(100vw - 40px));
+    pointer-events: none;
+}
+
+.operation-notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background: #263b46;
+    color: white;
+    box-shadow: 0 3px 12px #0004;
+    font-size: .9rem;
+}
+
+.operation-spinner {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff55;
+    border-top-color: white;
+    border-radius: 50%;
+    animation: operation-spin .8s linear infinite;
+}
+
+@keyframes operation-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    #operation-notifications {
+        right: 12px;
+        bottom: 12px;
+        width: calc(100vw - 24px);
+    }
+}
+
+/* Processing animation on individual book pages */
+article.card.is-processing .cover {
+    position: relative;
+    opacity: 0.45;
+}
+
+article.card.is-processing .cover::after {
+    content: attr(data-processing-label);
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    right: 5px;
+    z-index: 3;
+    text-align: center;
+    font-size: .78rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 3px #000;
+}
+
+article.card.is-processing.is-refresh .cover .processing-book {
+    animation: refresh-book 2s ease-in-out infinite;
+}
+
+article.card.is-processing.is-delete .cover .processing-book {
+    animation: delete-book 2s ease-in-out infinite;
+}
+
+article.card.is-processing.is-archive .cover .processing-book {
+    animation: place-book 3.4s linear infinite;
+}
+
+article.card.is-processing.is-restore .cover .processing-book {
+    animation: stack-book 2.8s linear infinite;
+}
+
+/* Base appearance of animated book on individual book pages */
+article.card.is-processing .cover .processing-book {
+    position: absolute;
+    z-index: 4;
+    width: 17%;
+    height: 31%;
+    left: calc(50% - 8.5%);
+    top: 24%;
+    border-radius: 3px 5px 5px 3px;
+    border: 2px solid #f0d9a6;
+    background: #527c91;
+    box-shadow: 2px 3px 5px #0006;
+    transform-origin: bottom center;
+}
+
+article.card.is-processing .cover .processing-book::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    top: 3px;
+    height: 2px;
+    background: #ffffff99;
+}
+
+article.card.is-processing.is-archive .cover::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 12%;
+    right: 12%;
+    top: 58%;
+    height: 5px;
+    border-radius: 2px;
+    background: #c49a6c;
+    box-shadow: 0 3px 5px #0005;
+}
+
+article.card.is-processing.is-restore .cover::before {
+    left: 25%;
+    right: 25%;
+    top: 65%;
+    height: 7px;
+    background: #9b7653;
+    box-shadow:
+        0 9px 0 #c49a6c,
+        0 18px 0 #76563e,
+        0 21px 5px #0005;
+}
+
+.audiobook-check-row {
+    display: flex;
+    justify-content: flex-end;
+    margin: -8px 0 20px;
+}
+
+#audiobook-check-row button,
+#open-audiobook-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 14px;
+    border: 1.5px solid var(--btn);
+    border-radius: 12px;
+    background: transparent;
+    color: var(--btn);
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .12s;
+}
+
+#open-audiobook-check:hover {
+    background: var(--chip);
+}
+
+#open-audiobook-check:active {
+    transform: scale(.98);
+}
+
+#open-audiobook-check:focus-visible {
+    outline: 3px solid var(--sky);
+    outline-offset: 2px;
+}
+
+.audiobook-results {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+    align-items: start;
+}
+
+.audiobook-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.audiobook-service {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20px;
+}
+
+#barcode-preview .audiobook-service img {
+    display: block;
+    width: 82px;
+    height: 22px;
+    object-fit: contain;
+    border: 0;
+    border-radius: 0;
+}
+
+.audiobook-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.audiobook-status.included {
+    color: #16834a;
+    background: #dff5e8;
+}
+
+.audiobook-status.purchase {
+    color: #9a6500;
+    background: #fff0cc;
+}
+
+.audiobook-status .manual-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 50%;
+    color: var(--muted);
+    background: var(--chip);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.audiobook-result p {
+    margin: 4px 0;
+    font-size: .9rem;
+}
+
+.audiobook-result a {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--link);
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+@media (max-width: 520px) {
+    .audiobook-check-row {
+        justify-content: stretch;
+    }
+
+    #open-audiobook-check {
+        width: 100%;
+    }
+}
+
+.audiobook-status.cart {
+    color: #9a6500;
+    background: #fff0cc;
+}
+
+.audiobook-status.cart svg {
+    width: 15px;
+    height: 15px;
 }

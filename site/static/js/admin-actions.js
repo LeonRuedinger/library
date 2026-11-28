@@ -20,20 +20,36 @@ function setBookProcessing(bookId, action) {
     button.disabled = true;
   });
 
-  document.querySelectorAll(".book-card-wrapper").forEach((wrapper) => {
-    if (!wrapper.querySelector(`[data-book-id="${bookId}"]`)) return;
+  const wrappers = [
+    ...document.querySelectorAll(".book-card-wrapper"),
+    ...document.querySelectorAll(".book-manage-row")
+  ];
 
-    wrapper.classList.add("is-processing");
+  wrappers.forEach((element) => {
+    if (
+      element.classList.contains("book-manage-row") &&
+      !element.querySelector(`[data-book-id="${bookId}"]`)
+    ) return;
 
-    if (action === "restore") {
-      wrapper.classList.add("is-restoring");
-    }
+    const wrapper = element.classList.contains("book-manage-row")
+      ? element.closest(".card")
+      : element;
+
+    if (!wrapper) return;
+
+    wrapper.classList.add("is-processing", `is-${action}`);
 
     const cover = wrapper.querySelector(".cover");
     if (!cover) return;
 
-    cover.dataset.processingLabel =
-      action === "archive" ? "Archiving book…" : "Restoring book…";
+    const labels = {
+      archive: "Archiving…",
+      restore: "Restoring…",
+      delete: "Deleting…",
+      refresh: "Refreshing links…"
+    };
+
+    cover.dataset.processingLabel = labels[action] || "Working…";
 
     if (!cover.querySelector(".processing-book")) {
       const animatedBook = document.createElement("span");
@@ -89,11 +105,23 @@ async function pollWorkflow(bookId, runId) {
         continue;
       }
 
+      const completedAction = pending[bookId].action;
+
       delete pending[bookId];
       savePendingOperations(pending);
 
       if (data.conclusion === "success") {
-        window.location.reload();
+        if (
+          completedAction === "delete" &&
+          window.location.pathname.split("/").includes(bookId)
+        ) {
+          const libraryUrl = new URL("../", window.location.href);
+          libraryUrl.searchParams.set("v", Date.now());
+          window.location.replace(libraryUrl.href);
+        } else {
+          window.location.reload();
+        }
+
         return;
       }
 
@@ -110,7 +138,39 @@ async function pollWorkflow(bookId, runId) {
   }
 }
 
+function renderOperationNotifications() {
+  const container = document.getElementById("operation-notifications");
+  if (!container) return;
+
+  container.replaceChildren();
+
+  const labels = {
+    archive: "Archiving book",
+    restore: "Restoring book",
+    delete: "Deleting book",
+    refresh: "Refreshing audiobook links"
+  };
+
+  for (const [bookId, operation] of Object.entries(getPendingOperations())) {
+    const notification = document.createElement("div");
+    notification.className = "operation-notification";
+
+    const message = document.createElement("span");
+    message.textContent =
+      `${labels[operation.action] || "Processing book"} (ID: ${bookId})…`;
+
+    const spinner = document.createElement("span");
+    spinner.className = "operation-spinner";
+    spinner.setAttribute("aria-hidden", "true");
+
+    notification.append(message, spinner);
+    container.appendChild(notification);
+  }
+}
+
 function restorePendingOperations() {
+  renderOperationNotifications();
+
   const pending = getPendingOperations();
 
   for (const [bookId, operation] of Object.entries(pending)) {
@@ -142,15 +202,16 @@ document.addEventListener("click", async (event) => {
   const action = button.dataset.adminAction;
   const bookId = button.dataset.bookId;
 
-  if (!["archive", "restore", "refresh"].includes(action)) return;
+  if (!["archive", "restore", "refresh", "delete"].includes(action)) return;
 
   const labels = {
     archive: "Archive this book?",
     restore: "Restore this book?",
-    refresh: "Refresh audiobook links for this book?"
+    refresh: "Refresh audiobook links for this book?",
+    delete: "PERMANENTLY delete this book? This cannot be undone."
   };
 
-  if (!confirm(labels[action])) return;
+  if (action !== "refresh" && !confirm(labels[action])) return;
 
   const originalText = button.textContent;
   button.disabled = true;
@@ -178,13 +239,6 @@ document.addEventListener("click", async (event) => {
       }
 
       throw new Error(data.error || "Request failed.");
-    }
-
-    if (action === "refresh") {
-      button.textContent = "Refresh started";
-      button.closest(".book-card-wrapper").style.opacity = "0.5";
-      alert(data.message || "Refresh started successfully.");
-      return;
     }
 
     if (!data.runId) {
