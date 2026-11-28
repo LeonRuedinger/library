@@ -144,15 +144,12 @@ function renderBookPreview(book) {
   availabilityContainer.appendChild(availabilityResults);
 
 
-  const bottom = createElement("div", "barcode-book-bottom");
-  bottom.appendChild(availabilityContainer);
+  details.appendChild(availabilityContainer);
 
   const button = createElement("button", "barcode-book-add", "Add to form");
   button.type = "button";
   button.addEventListener("click", addBookMetadata);
-  bottom.appendChild(button);
-
-  details.appendChild(bottom);
+  details.appendChild(button);
 
   checkAudiobookAvailability(book, availabilityResults);
   card.appendChild(details);

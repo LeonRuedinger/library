@@ -350,23 +350,14 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
     min-width: 0;
 }
 
-.barcode-book-bottom {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: auto;
-    padding-top: 10px;
-}
-
 .audiobook-availability {
     flex: 1;
     min-width: 0;
 }
 
 .barcode-book-add {
-    flex-shrink: 0;
-    margin-top: 0;
+    align-self: flex-end;
+    margin-top: 10px;
 }
 
 .barcode-book-title {
@@ -401,13 +392,14 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 }
 
 @media (max-width: 420px) {
-    .barcode-book-details {
-        min-height: 132px;
+    .barcode-book-card {
+        gap: 12px;
+        padding: 10px;
     }
 
-    .barcode-book-bottom {
-        width: calc(100% + 84px);
-        margin-left: -84px;
+    .barcode-book-cover {
+        flex-basis: 72px;
+        width: 72px;
     }
 }
 
