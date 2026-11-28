@@ -401,14 +401,13 @@ h2{margin:26px 0 10px;font-size:.78rem;letter-spacing:.14em;text-transform:upper
 }
 
 @media (max-width: 420px) {
-    .barcode-book-card {
-        gap: 12px;
-        padding: 10px;
+    .barcode-book-details {
+        min-height: 132px;
     }
 
-    .barcode-book-cover {
-        flex-basis: 72px;
-        width: 72px;
+    .barcode-book-bottom {
+        width: calc(100% + 84px);
+        margin-left: -84px;
     }
 }
 
